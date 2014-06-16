@@ -53,7 +53,7 @@ function move(newX,newY){
       stackCount++;
       
       currPos = [newX,newY];
-
+      alert(currPos);
       $('h1').html(stackCount+'/14');
 }
 
@@ -124,8 +124,11 @@ function isWin(){
    //NEED TO FILL
 //CHECK IF CAN UNDO
 function isCanUndo(x,y){
+   alert("clicked at : "+x+","+y);
+   alert("currPos : "+ currPos[0] +","+currPos[1]);
    if(stackCount != 0){
-      if(x != currPos[0] && y != currPos[1]){
+      if(x == currPos[0] && y == currPos[1]){
+
          return true;
       }else{
          return false;
@@ -139,44 +142,67 @@ function isCanUndo(x,y){
 function undoLastMove(){
    currPos = stackMove.pop();
    stackCount--;
+   $('h1').html(stackCount+'/14');
 }
 
 $(document).ready(function(){
    initGame();
 
    for (var i = 2; i <= 7; i++) {
-         for (var j = 1; j <= 6; j++) {
-            $('table tr:nth-child('+ i +') td:nth-child('+ j +').cell').click(function(){
-               if(isMoveValid(this.cellIndex,this.parentNode.rowIndex) && currPos[0]+1 == this.cellIndex) {
-                  var x = currPos[0]+1;
-                  var y = currPos[1]+1;
-                  $(this).toggleClass("left");
-                  $('table tr:nth-child('+ y +') td:nth-child('+ x +').cell').toggleClass("right");
-                  move(this.cellIndex,this.parentNode.rowIndex);
-                  isWin();
-               } else if(isMoveValid(this.cellIndex,this.parentNode.rowIndex) && currPos[0]-1 == this.cellIndex) {
-                  var x = currPos[0]+1;
-                  var y = currPos[1]+1;
-                  $(this).toggleClass("right");
-                  $('table tr:nth-child('+ y +') td:nth-child('+ x +').cell').toggleClass("left");
-                  move(this.cellIndex,this.parentNode.rowIndex);
-                  isWin();
-               } else if(isMoveValid(this.cellIndex,this.parentNode.rowIndex) && currPos[1]+1 == this.parentNode.rowIndex) {
-                  var x = currPos[0]+1;
-                  var y = currPos[1]+1;
-                  $(this).toggleClass("up");
-                  $('table tr:nth-child('+ y +') td:nth-child('+ x +').cell').toggleClass("down");
-                  move(this.cellIndex,this.parentNode.rowIndex);
-                  isWin();
-               } else if(isMoveValid(this.cellIndex,this.parentNode.rowIndex) && currPos[1]-1 == this.parentNode.rowIndex) {
-                  var x = currPos[0]+1;
-                  var y = currPos[1]+1;
-                  $(this).toggleClass("down");
-                  $('table tr:nth-child('+ y +') td:nth-child('+ x +').cell').toggleClass("up");
-                  move(this.cellIndex,this.parentNode.rowIndex);
-                  isWin();
+      for (var j = 1; j <= 6; j++) {
+         $('table tr:nth-child('+ i +') td:nth-child('+ j +').cell').click(function(){
+            if(isMoveValid(this.cellIndex,this.parentNode.rowIndex) && currPos[0]+1 == this.cellIndex) {
+               var x = currPos[0]+1;
+               var y = currPos[1]+1;
+               $(this).toggleClass("left");
+               $('table tr:nth-child('+ y +') td:nth-child('+ x +').cell').toggleClass("right");
+               move(this.cellIndex,this.parentNode.rowIndex);
+               isWin();
+            } else if(isMoveValid(this.cellIndex,this.parentNode.rowIndex) && currPos[0]-1 == this.cellIndex) {
+               var x = currPos[0]+1;
+               var y = currPos[1]+1;
+               $(this).toggleClass("right");
+               $('table tr:nth-child('+ y +') td:nth-child('+ x +').cell').toggleClass("left");
+               move(this.cellIndex,this.parentNode.rowIndex);
+               isWin();
+            } else if(isMoveValid(this.cellIndex,this.parentNode.rowIndex) && currPos[1]+1 == this.parentNode.rowIndex) {
+               var x = currPos[0]+1;
+               var y = currPos[1]+1;
+               $(this).toggleClass("up");
+               $('table tr:nth-child('+ y +') td:nth-child('+ x +').cell').toggleClass("down");
+               move(this.cellIndex,this.parentNode.rowIndex);
+               isWin();
+            } else if(isMoveValid(this.cellIndex,this.parentNode.rowIndex) && currPos[1]-1 == this.parentNode.rowIndex) {
+               var x = currPos[0]+1;
+               var y = currPos[1]+1;
+               $(this).toggleClass("down");
+               $('table tr:nth-child('+ y +') td:nth-child('+ x +').cell').toggleClass("up");
+               move(this.cellIndex,this.parentNode.rowIndex);
+               isWin();
+            } else if(isCanUndo(this.cellIndex,this.parentNode.rowIndex)) {
+               if($(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").hasClass("up")) {
+                  undoLastMove();
+                  alert(currPos);
+                  $(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("up");
+                  $(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("down");
+               } else if($(".content table tr:nth-child("+ this.parentNode.rowIndex +") td:nth-child("+ (this.cellIndex+1) +").cell").hasClass("down")) {
+                  undoLastMove();
+                  alert(currPos);
+                  $(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("down");
+                  $(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("up");
+               } else if($(".content table tr:nth-child("+ this.parentNode.rowIndex +") td:nth-child("+ (this.cellIndex+1) +").cell").hasClass("left")) {
+                  undoLastMove();
+                  alert(currPos);
+                  $(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("left");
+                  $(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("right");
+               } else if($(".content table tr:nth-child("+ this.parentNode.rowIndex +") td:nth-child("+ (this.cellIndex+1) +").cell").hasClass("right")) {
+                  undoLastMove();
+                  alert(currPos);
+                  $(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("right");
+                  $(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("left");
                }
-            });
-         }  
-      }
+            }
+         });
+      }  
+   }
 });
