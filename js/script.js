@@ -116,7 +116,7 @@ function isWin(){
       fufilled = false;
    }
    if(stackCount == 14 && currPos[0] == 5 && currPos[1] == 6 && fufilled){
-      alert("YOU WIN BITCHES!!!!");
+      alert("YOU WON!!!! YEAH...");
    }
 }
    
