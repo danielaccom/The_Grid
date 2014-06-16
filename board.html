@@ -12,9 +12,30 @@
 	</head>
 	
 	<body>
+		<div class="left-side">
+			<div id="btn-start">
+				<img src="" alt="">
+			</div>
+			<div class="spilanleitung">
+				<h2>Spilanleitung</h2>
+				<p>Auf der Suche nach Julia musst du durch die Menschenmenge. Wie das geht?<br><br>
+1. Klicke auf die Menschen und 
+    verbinde sie. Du startest oben 
+    links, Ziel ist unten rechts.<br>
+2. Deine verbleibenden Spielzüge 
+    stehen oben rechts.<br>
+3. Du musst an unseren yourfone 
+    Promotern vorbei. Du erkennst 
+    sie an den farbigen Shirts.<br>
+4. Hast du die Aufgabe gelöst und 
+    das Teilnahmeformular ausgefüllt, 
+    nimmst du an unserem tollen 
+    Gewinnspiel teil.</p>
+			</div>
+		</div>
 		<div class="content">
 			<table id="gameBoard">
-				<tr>
+				<tr class="hidden">
 					<td>1</td>
 					<td>2</td>
 					<td>3</td>
@@ -31,7 +52,7 @@
 					<td class="cell"></td>
 					<td class="cell"></td>
 					<td class="cell"></td>
-					<td>1</td>
+					<td class="hidden">1</td>
 				</tr>
 				
 				<tr>
@@ -41,7 +62,7 @@
 					<td class="cell"></td>
 					<td class="cell"></td>
 					<td class="cell"></td>
-					<td>2</td>
+					<td class="hidden">2</td>
 				</tr>
 				
 				<tr>
@@ -51,7 +72,7 @@
 					<td class="cell"></td>
 					<td class="cell"></td>
 					<td class="cell"></td>
-					<td>3</td>
+					<td class="hidden">3</td>
 				</tr>
 				
 				<tr>
@@ -61,7 +82,7 @@
 					<td class="cell"></td>
 					<td class="cell"></td>
 					<td class="cell"></td>
-					<td>4</td>
+					<td class="hidden">4</td>
 				</tr>
 				
 				<tr>
@@ -71,7 +92,7 @@
 					<td class="cell"></td>
 					<td class="cell"></td>
 					<td class="cell"></td>
-					<td>5</td>
+					<td class="hidden">5</td>
 				</tr>
 				
 				<tr>
@@ -81,13 +102,17 @@
 					<td class="cell"></td>
 					<td class="cell"></td>
 					<td class="cell"></td>
-					<td>6</td>
+					<td class="hidden">6</td>
 				</tr>
 			</table>
 		</div>
-		<div class="information">
-			<h1>0/14</h1>
-			<h2>0 minute(s) 0 second(s)</h2>
+		<div class="right-side">
+			<div class="counter">
+				<h2 id="counter-desc">14x</h2>
+			</div>
+			<div id="btn-ziel">
+				<img src="" alt="">
+			</div>
 		</div>
 	</body>
 </html>

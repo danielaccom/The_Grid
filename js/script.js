@@ -28,7 +28,7 @@ function count()
       seconds = 0;
    }
 
-   $('h2').html(minutes + " minute(s) " + seconds + " second(s)");
+   //$('h2').html(minutes + " minute(s) " + seconds + " second(s)");
 }
 
 //FUNCTION DECLARATION

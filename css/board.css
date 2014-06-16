@@ -1,34 +1,56 @@
 body
 {
-	height : 87%;
-	width : 99%;
-	background: #fff url('../images/bg.jpg') round;
+	max-height : 100%;
+	min-height : 100%;
+	max-width : 100%;
+	min-width: 100%;
+	margin: 0;
+	background: url('../images/bg.jpg') no-repeat center center fixed; 
+  	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
 }
 
-.information, .content {
+.hidden {
+	display: none;
+}
+
+.left-side, .content, .right-side {
 	float: left;
+}
+
+.left-side {
+	margin-left: 13px;
+	margin-right: 17px;
+	width: 238px;
+}
+
+.spilanleitung {
+	width: 233px;
+	padding-left: 15px;
+	padding-right: 10px;
 }
 
 .content
 {
 	margin : 0;
-	height : 90%;
-	width : 40%;
+	width : 462px;
 }
 
 .content table
 {
-	height : 630px;
-	width : 630px;
+	height : 443px;
+	width : 100%;
 	border-spacing : 0;
 }
 
 .content table tr td
 {
-	border : 1px solid black;
+	border : none;
 	text-align : center;
-	height : 90px; 
-	width : 90px;
+	height : 16%; 
+	width : 16%;
 	border-spacing : 0;
 }
 
