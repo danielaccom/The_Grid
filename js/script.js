@@ -6,6 +6,23 @@ var currPos;////CURRENT POSITION IN X,Y STARTS AT 0
 var arrTargetPos = [];//ARRAY POSITION TARGET IN X,Y STARTS AT 0
 var table = document.getElementById("gameBoard");
 
+var minutes = 0;
+var seconds = 0;
+var timer;
+
+
+
+function count()
+{
+   seconds++;
+   if(seconds == 60) {
+      minutes++;
+      seconds = 0;
+   }
+
+   $('h2').html(minutes + " minute(s) " + seconds + " second(s)");
+}
+
 //FUNCTION DECLARATION
 function initGame(){
    //INIT UNDO STACK
@@ -15,6 +32,10 @@ function initGame(){
    //INIT POSITIONS
    currPos = [0,1];
    
+   timer = setInterval(function(){count()},1000);
+   minutes = 0;
+   seconds = 0;
+
    //RANDOMIZE ARRAY POSITION
    randomizeTargetPos();
 }
@@ -116,7 +137,8 @@ function isWin(){
       fufilled = false;
    }
    if(stackCount == 14 && currPos[0] == 5 && currPos[1] == 6 && fufilled){
-      alert("YOU WON!!!! YEAH...");
+      clearInterval(timer);
+      alert("YOU WON!!!! YEAH... Your time record is " + minutes + " minute(s) " + seconds + " second(s)");
    }
 }
    
