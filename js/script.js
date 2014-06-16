@@ -11,7 +11,14 @@ var minutes = 0;
 var seconds = 0;
 var timer;
 
-
+function randomizeTile() {
+   for (var i = 2; i <= 7; i++) {
+      for (var j = 1; j <= 6; j++) {
+         var classes = ["man","woman1","woman2"];
+         $('table tr:nth-child('+ i +') td:nth-child('+ j +').cell').addClass(classes[Math.round(Math.random()*(classes.length-1))]);
+      }
+   }
+}
 
 function count()
 {
@@ -26,6 +33,8 @@ function count()
 
 //FUNCTION DECLARATION
 function initGame(){
+   randomizeTile();
+
    //INIT UNDO STACK
    stackMove = new Array();
    stackCount = 0;
@@ -71,7 +80,7 @@ function randomizeTargetPos(){
 	
 	for (i = 0; i < arrTargetPos.length; i++)
 	{
-		$(".content table tr:nth-child("+ arrTargetPos[i][1] +") td:nth-child("+ arrTargetPos[i][0] +")").toggleClass("pink");
+		$(".content table tr:nth-child("+ arrTargetPos[i][1] +") td:nth-child("+ arrTargetPos[i][0] +")").toggleClass("purple");
 	}
 	
    //DUMMY RANDOMIZER END
@@ -91,13 +100,16 @@ function isInArray2d(array2d,element){
 //GAME VALIDATOR
 function pinkTilesValidator(arrPinkTiles){
 	var dx = 0;
-	var dy = 1;
-	for(var i = 0; i < arrPinkTiles.length; i++)
-	{
-		dx = dx + Math.abs(dx - arrPinkTiles[i][0]);
-		dy = dy + Math.abs(dy - arrPinkTiles[i][1]);
-	}
-	
+	var dy = 0;
+
+   dx = dx + Math.abs(1 - arrPinkTiles[0][0]);
+   dy = dy + Math.abs(2 - arrPinkTiles[0][1]);
+   
+   for(var i = 1; i < arrPinkTiles.length; i++)
+   {
+      dx = dx + Math.abs(arrPinkTiles[i-1][0] - arrPinkTiles[i][0]);
+      dy = dy + Math.abs(arrPinkTiles[i-1][1] - arrPinkTiles[i][1]);
+   }
 	//alert(arrPinkTiles);
 	//alert(dx+dy);
 	
@@ -244,41 +256,21 @@ $(document).ready(function(){
                isWin();
             } else if(isCanUndo(this.cellIndex,this.parentNode.rowIndex)) {
                var tempCurrPos = currPos;
-			   undoLastMove();
-
-			   
-			   //GERAK KE KIRI
-				if(tempCurrPos[0]-1 == currPos[0] && tempCurrPos[1] == currPos[1]){
-					$(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("left");
-					$(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("right");
-				}if(tempCurrPos[0]+1 == currPos[0] && tempCurrPos[1] == currPos[1]){
-					$(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("right");
-					$(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("left");
-				}if(tempCurrPos[0] == currPos[0] && tempCurrPos[1] == currPos[1]+1){
-					$(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("up");
-					$(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("down");
-				}if(tempCurrPos[0] == currPos[0] && tempCurrPos[1] == currPos[1]-1){
-					$(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("down");
-					$(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("up");
-				}
-			   
-			   /*if($(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").hasClass("up")) {
-                  undoLastMove();
-                  $(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("up");
-                  $(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("down");
-               } else if($(".content table tr:nth-child("+ this.parentNode.rowIndex +") td:nth-child("+ (this.cellIndex+1) +").cell").hasClass("down")) {
-                  undoLastMove();
-                  $(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("down");
-                  $(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("up");
-               } else if($(".content table tr:nth-child("+ this.parentNode.rowIndex +") td:nth-child("+ (this.cellIndex+1) +").cell").hasClass("left")) {
-                  undoLastMove();
-                  $(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("left");
-                  $(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("right");
-               } else if($(".content table tr:nth-child("+ this.parentNode.rowIndex +") td:nth-child("+ (this.cellIndex+1) +").cell").hasClass("right")) {
-                  undoLastMove();
-                  $(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("right");
-                  $(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("left");
-               }*/
+			      undoLastMove();
+			      //GERAK KE KIRI
+				   if(tempCurrPos[0]-1 == currPos[0] && tempCurrPos[1] == currPos[1]){
+					    $(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("left");
+					    $(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("right");
+				   }if(tempCurrPos[0]+1 == currPos[0] && tempCurrPos[1] == currPos[1]){
+					    $(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("right");
+					    $(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("left");
+				   }if(tempCurrPos[0] == currPos[0] && tempCurrPos[1] == currPos[1]+1){
+					    $(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("up");
+					    $(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("down");
+				   }if(tempCurrPos[0] == currPos[0] && tempCurrPos[1] == currPos[1]-1){
+					    $(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("down");
+					    $(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("up");
+				   }
             }
          });
       }  
