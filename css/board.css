@@ -70,7 +70,7 @@ td img
 
 .content table tr:not(:first-child) td:not(:last-child).pink.left.down
 { 
-	background: url('../images/pink-down.png') center;
+	background: url('../images/pink-left-down.png') center;
 }
 
 .content table tr:not(:first-child) td:not(:last-child).pink.right.up
