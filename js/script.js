@@ -5,7 +5,7 @@ $(document).ready(function(){
    var i = 1;
    var row, col;
    
-   while (i < 5)
+   while (i < 4)
    {
       row = Math.floor((Math.random() * 6) + 2);
       col = Math.floor((Math.random() * 5) + 1);
