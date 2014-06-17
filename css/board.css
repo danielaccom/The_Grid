@@ -1,0 +1,26 @@
+body
+{
+	height : 87%;
+	width : 99%;
+}
+
+.content
+{
+	margin : 5% auto;
+	height : 90%;
+	width : 40%;
+}
+
+.content table
+{
+	height : 100%;
+	width : 100%;
+}
+
+.content table tr td
+{
+	border : 1px solid black;
+	text-align : center;
+	height : 14.2857%; 
+	width : 14.2857%;
+}
