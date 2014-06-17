@@ -83,6 +83,16 @@ td img
 	background: url('../images/pink-right-down.png') center;
 }
 
+.content table tr:not(:first-child) td:not(:last-child).pink.left.right
+{ 
+	background: url('../images/pink-hor.png') center;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).pink.up.down
+{ 
+	background: url('../images/pink-ver.png') center;
+}
+
 .content table tr:not(:first-child) td:not(:last-child).up
 { 
 	background: url('../images/blue-up.png') center;
@@ -121,4 +131,14 @@ td img
 .content table tr:not(:first-child) td:not(:last-child).right.down
 { 
 	background: url('../images/blue-right-down.png') center;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).left.right
+{ 
+	background: url('../images/blue-hor.png') center;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).up.down
+{ 
+	background: url('../images/blue-ver.png') center;
 }
