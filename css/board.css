@@ -13,8 +13,8 @@ body
 
 .content table
 {
-	height : 100%;
-	width : 100%;
+	height : 630px;
+	width : 630px;
 	border-spacing : 0;
 }
 
@@ -22,8 +22,9 @@ body
 {
 	border : 1px solid black;
 	text-align : center;
-	height : 14.2857%; 
-	width : 14.2857%;
+	height : 90px; 
+	width : 90px;
+	border-spacing : 0;
 }
 
 td img
@@ -42,4 +43,82 @@ td img
 	background: url('../images/pink-tile.png') center;
 }
 
+.content table tr:not(:first-child) td:not(:last-child).pink.up
+{ 
+	background: url('../images/pink-up.png') center;
+}
 
+.content table tr:not(:first-child) td:not(:last-child).pink.down
+{ 
+	background: url('../images/pink-down.png') center;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).pink.left
+{ 
+	background: url('../images/pink-left.png') center;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).pink.right
+{ 
+	background: url('../images/pink-right.png') center;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).pink.left.up
+{ 
+	background: url('../images/pink-left-up.png') center;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).pink.left.down
+{ 
+	background: url('../images/pink-down.png') center;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).pink.right.up
+{ 
+	background: url('../images/pink-right-up.png') center;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).pink.right.down
+{ 
+	background: url('../images/pink-right-down.png') center;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).up
+{ 
+	background: url('../images/blue-up.png') center;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).down
+{ 
+	background: url('../images/blue-down.png') center;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).left
+{ 
+	background: url('../images/blue-left.png') center;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).right
+{ 
+	background: url('../images/blue-right.png') center;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).left.up
+{ 
+	background: url('../images/blue-left-up.png') center;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).left.down
+{ 
+	background: url('../images/blue-left-down.png') center;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).right.up
+{ 
+	background: url('../images/blue-right-up.png') center;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).right.down
+{ 
+	background: url('../images/blue-right-down.png') center;
+}
