@@ -26,6 +26,12 @@ body
 	width : 14.2857%;
 }
 
+td img
+{
+	width: 100%;
+	height: 100%;
+}
+
 .content table tr:not(:first-child) td:not(:last-child)
 { 
 	background: url('../images/blue-tile.png') center;
