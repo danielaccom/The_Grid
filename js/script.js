@@ -53,7 +53,6 @@ function move(newX,newY){
       stackCount++;
       
       currPos = [newX,newY];
-      alert(currPos);
       $('h1').html(stackCount+'/14');
 }
 
@@ -124,11 +123,9 @@ function isWin(){
    //NEED TO FILL
 //CHECK IF CAN UNDO
 function isCanUndo(x,y){
-   alert("clicked at : "+x+","+y);
-   alert("currPos : "+ currPos[0] +","+currPos[1]);
    if(stackCount != 0){
       if(x == currPos[0] && y == currPos[1]){
-
+		
          return true;
       }else{
          return false;
@@ -180,27 +177,42 @@ $(document).ready(function(){
                move(this.cellIndex,this.parentNode.rowIndex);
                isWin();
             } else if(isCanUndo(this.cellIndex,this.parentNode.rowIndex)) {
-               if($(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").hasClass("up")) {
+               var tempCurrPos = currPos;
+			   undoLastMove();
+
+			   
+			   //GERAK KE KIRI
+				if(tempCurrPos[0]-1 == currPos[0] && tempCurrPos[1] == currPos[1]){
+					$(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("left");
+					$(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("right");
+				}if(tempCurrPos[0]+1 == currPos[0] && tempCurrPos[1] == currPos[1]){
+					$(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("right");
+					$(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("left");
+				}if(tempCurrPos[0] == currPos[0] && tempCurrPos[1] == currPos[1]+1){
+					$(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("up");
+					$(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("down");
+				}if(tempCurrPos[0] == currPos[0] && tempCurrPos[1] == currPos[1]-1){
+					$(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("down");
+					$(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("up");
+				}
+			   
+			   /*if($(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").hasClass("up")) {
                   undoLastMove();
-                  alert(currPos);
                   $(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("up");
                   $(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("down");
                } else if($(".content table tr:nth-child("+ this.parentNode.rowIndex +") td:nth-child("+ (this.cellIndex+1) +").cell").hasClass("down")) {
                   undoLastMove();
-                  alert(currPos);
                   $(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("down");
                   $(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("up");
                } else if($(".content table tr:nth-child("+ this.parentNode.rowIndex +") td:nth-child("+ (this.cellIndex+1) +").cell").hasClass("left")) {
                   undoLastMove();
-                  alert(currPos);
                   $(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("left");
                   $(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("right");
                } else if($(".content table tr:nth-child("+ this.parentNode.rowIndex +") td:nth-child("+ (this.cellIndex+1) +").cell").hasClass("right")) {
                   undoLastMove();
-                  alert(currPos);
                   $(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("right");
                   $(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("left");
-               }
+               }*/
             }
          });
       }  
