@@ -8,9 +8,6 @@ function initGame(){
 	currPos = [0,1]
 	arrTargetPos = {}
 	
-	//INIT CONNECTOR COUNT
-	connectorCount = 0;
-	
 	//RANDOMIZE ARRAY POSITION
 	randomizeTargetPos();
 }
@@ -34,38 +31,78 @@ function move(newX,newY){
 		stackCount++;
 		
 		currPos = [newX,newY];
-		connectorCount++;
 }
 
 	//NEED TO FILL//
 //CHECK MOVE VALIDITY, RETURN BOOLEAN
 function isMoveValid(x,y){
 	//DUMMY VALIDATION
-	return true;
+	if(stackCount >= 13 {
+		return false;
+	}
+	
+	if(x >= 0 && x<6 && y > 0 && y<7){
+		if(x == currPos[0]+1 && y == currPos[1]
+			|| x == currPos[0]-1 && y == currPos[1]
+			|| x == currPos[0] && y == currPos[1] + 1
+			|| x == currPos[0] && y == currPos[1] - 1)
+		{
+			if(stackMove.indexOf([x,y])== -1){
+				return true;
+			}else{
+				return false;
+			}
+		}else{
+			return false;
+		}
+	}else{
+		return false;
+	}
 	//END DUMMY VALIDATION
 }
 	
 	//NEED TO FILL
 //CHECK WIN CONDITION
 function isWin(){
-	//DUMMY VALIDATION
-	return true;
-	//END DUMMY VALIDATION
+	if(stackCount == 14 && currPos == [5,6] && isAllTargetConnected()){
+		return true;
+	else{
+		return false;
+	}
 }
 	
 	//NEED TO FILL
 //CHECK IF CAN UNDO
 function isCanUndo(x,y){
-	//DUMMY VALIDATION
-	return true;
-	//END DUMMY VALIDATION
+	if(stackCount != 0){
+		return true;
+	}else{
+		return false;
+	}
 }
 
 //FUNCTION FOR UNDO MOVE
 function undoLastMove(){
 	currPos = stackMove.pop();
 	stackCount--;
-	connectorCount--;
+}
+
+//IS ARRAY TARGET POS IN STACK COUNT
+function isAllTargetConnected(){
+	var i;
+	var count;//TARGET CONNECTED COUNT
+	
+	for(i = 0;i<arrTargetPos.length;i++){
+		if(stackMove.indexOf(arrTargetPos[i])!= -1){
+			count++
+		}
+	}
+	
+	if(count == 3){
+		return true;
+	}
+	
+	return false;
 }
 
 //VARIABLE DECLARATION
@@ -75,6 +112,5 @@ var stackCount;
 var currPos;////CURRENT POSITION IN X,Y STARTS AT 0
 var arrTargetPos;//ARRAY POSITION TARGET IN X,Y STARTS AT 0
 
-var connectorCount;//CONNECTOR USED
 //BODY
 initGame();
