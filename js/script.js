@@ -16,7 +16,7 @@ $(document).ready(function(){
       }
       else
       {
-         $(".content table tr:nth-child("+ row +") td:nth-child("+ col +")").addClass("pink");
+         $(".content table tr:nth-child("+ row +") td:nth-child("+ col +")").toggleClass("pink");
          i++;
       }
    }
