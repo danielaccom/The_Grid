@@ -66,14 +66,14 @@ function randomizeTargetPos(){
 				i++;
 		  }
 		}
-		//arrTargetPos[4] = [5,6];
+		arrTargetPos[4] = [6,7];
 	}while(!pinkTilesValidator(arrTargetPos));
 	
 	for (i = 0; i < arrTargetPos.length; i++)
 	{
 		$(".content table tr:nth-child("+ arrTargetPos[i][1] +") td:nth-child("+ arrTargetPos[i][0] +")").toggleClass("pink");
 	}
-	arrTargetPos[4] = [5,6];
+	
    //DUMMY RANDOMIZER END
    //alert(arrTargetPos);
 }
