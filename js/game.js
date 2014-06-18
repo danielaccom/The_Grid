@@ -34,7 +34,7 @@ function move(newX,newY){
 		stackCount++;
 		
 		currPos = [newX,newY];
-
+		connectorCount++;
 }
 
 	//NEED TO FILL//
@@ -65,6 +65,7 @@ function isCanUndo(x,y){
 function undoLastMove(){
 	currPos = stackMove.pop();
 	stackCount--;
+	connectorCount--;
 }
 
 //VARIABLE DECLARATION
