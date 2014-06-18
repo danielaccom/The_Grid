@@ -4,6 +4,7 @@ var stackCount;
 
 var currPos;////CURRENT POSITION IN X,Y STARTS AT 0
 var arrTargetPos = [];//ARRAY POSITION TARGET IN X,Y STARTS AT 0
+var arrPinkTiles = [];//ARRAY CANDIDATE PINK TILES
 var table = document.getElementById("gameBoard");
 
 var minutes = 0;
@@ -44,27 +45,70 @@ function initGame(){
 //TARGET RANDOMIZER
 function randomizeTargetPos(){
    //DUMMY RANDOMIZER
-   var i = 0;
    var row, col;
    
-   while (i < 4)
-   {
-      row = Math.floor((Math.random() * 6) + 2);
-      col = Math.floor((Math.random() * 5) + 1);
-      
-      if( $(".content table tr:nth-child("+ row +") td:nth-child("+ col +")").hasClass("pink") ) 
-      {
+   do{
+		var i = 0;
+		while (i < 4)
+		{
+			row = Math.floor((Math.random() * 6) + 2);
+			col = Math.floor((Math.random() * 5) + 1);
+		  
+			if(isInArray2d(arrTargetPos,[col,row]))
+			{
 
-      }
-      else
-      {
-         $(".content table tr:nth-child("+ row +") td:nth-child("+ col +")").toggleClass("pink");
-         arrTargetPos[i] = [col,row];
-         i++;
-      }
-   }
-   arrTargetPos[4] = [5,6];
+			}
+			else
+			{
+				//$(".content table tr:nth-child("+ row +") td:nth-child("+ col +")").toggleClass("pink");
+				arrTargetPos[i] = [col,row];
+				//	arrPinkTiles[i] = [col,row];
+				i++;
+		  }
+		}
+		//arrTargetPos[4] = [5,6];
+	}while(!pinkTilesValidator(arrTargetPos));
+	
+	for (i = 0; i < arrTargetPos.length; i++)
+	{
+		$(".content table tr:nth-child("+ arrTargetPos[i][1] +") td:nth-child("+ arrTargetPos[i][0] +")").toggleClass("pink");
+	}
+	arrTargetPos[4] = [5,6];
    //DUMMY RANDOMIZER END
+   //alert(arrTargetPos);
+}
+
+//COMPARING 2 ARRAY 2D
+function isInArray2d(array2d,element){
+	var i;
+	for(i = 0;i<array2d.length;i++){
+		if(element[0] == array2d[i][0] && element[1] == array2d[i][1])
+			return true;
+	}
+	return false;
+}
+
+//GAME VALIDATOR
+function pinkTilesValidator(arrPinkTiles){
+	var dx = 0;
+	var dy = 1;
+	for(var i = 0; i < arrPinkTiles.length; i++)
+	{
+		dx = dx + Math.abs(dx - arrPinkTiles[i][0]);
+		dy = dy + Math.abs(dy - arrPinkTiles[i][1]);
+	}
+	
+	//alert(arrPinkTiles);
+	//alert(dx+dy);
+	
+	if ((dx+dy) <= 14)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 //MOVE TO
