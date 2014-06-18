@@ -75,7 +75,11 @@ function isWin(){
 //CHECK IF CAN UNDO
 function isCanUndo(x,y){
 	if(stackCount != 0){
-		return true;
+		if(x != currPos[0] && y != currPos[1]){
+			return true;
+		}else{
+			return false;
+		}
 	}else{
 		return false;
 	}
