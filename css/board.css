@@ -491,9 +491,12 @@ td img
 
 .counter{
 	margin-top:70px;
-	margin-left:105px;
+	margin-left:55px;
+	
 	font-size:24px;
 	font-family : KillerElephant;
+	text-align:right;
+	
 	color : white;
 }
 
@@ -503,7 +506,7 @@ td img
 	-webkit-animation-iteration-count: infinite;
 	-webkit-animation-direction:alternate;
 	-webkit-animation-timing-function:linear;
-	animation: blinkingText 0.3s;
+	animation: blinkingText 0.5s;
 	animation-iteration-count: infinite;
 	animation-direction:alternate;
 	animation-timing-function:linear;
