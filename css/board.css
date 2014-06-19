@@ -497,6 +497,30 @@ td img
 	color : white;
 }
 
+
+.counter.blinking{
+	-webkit-animation: blinkingText 2s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-direction:alternate;
+	-webkit-animation-timing-function:linear;
+	animation: blinkingText 0.3s;
+	animation-iteration-count: infinite;
+	animation-direction:alternate;
+	animation-timing-function:linear;
+}
+
+
+/* ANIMATION */
+@-webkit-keyframes blinkingText{
+   0% {color:black;}
+   100% {color:white;}
+}
+
+@keyframes blinkingText{
+   from{color:white;}
+   to {color:red;}
+}
+
 #btn-ziel{
 	margin-top:325px;
 }

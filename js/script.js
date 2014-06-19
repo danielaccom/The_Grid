@@ -178,6 +178,7 @@ function move(newX,newY){
       
       currPos = [newX,newY];
       $('h2#counter-desc').html((14-stackCount)+'x');
+	  autoConnectorAlert();
 }
 
    //NEED TO FILL//
@@ -265,6 +266,16 @@ function undoLastMove(){
    currPos = stackMove.pop();
    stackCount--;
    $('h2#counter-desc').html((14-stackCount)+'x');
+   autoConnectorAlert();
+}
+
+//FOR TOGGLE BLINKING
+function autoConnectorAlert(){
+	if(stackCount == 14 && !isWin()){
+		$('.counter').addClass('blinking');
+	}else if(stackCount == 13){
+		$('.counter').removeClass('blinking');
+	}
 }
 
 $(document).ready(function(){
