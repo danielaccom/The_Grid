@@ -1,7 +1,7 @@
 body
 {
-	height : 600px;
-	width : 960px;
+	height :100%;
+	width : 100%;
 	margin-left: 196px;
 	margin-top: 34px;
 	background: url('../images/bg.jpg') no-repeat center center fixed; 
@@ -9,6 +9,7 @@ body
   	-moz-background-size: cover;
   	-o-background-size: cover;
   	background-size: 960px 600px;
+	overflow:hidden;
 }
 
 .hidden {
@@ -488,10 +489,10 @@ td img
 
 /* RIGHT SIDE */
 .right-side{
-	margin-left:0px;
+	margin-left:3px;
 	margin-right:0px;
 	height:600px;
-	width:216px;
+	width:219px;
 	background:url('../images/connector-splat.png');
 	background-repeat:no-repeat;
 	background-size : 219px 248px;
@@ -534,6 +535,11 @@ td img
 
 #btn-ziel{
 	margin-top:325px;
+}
+
+#btn-ziel img
+{
+	margin-left: 9px;
 }
 
 /*	TEXT-CHART-1	*/
