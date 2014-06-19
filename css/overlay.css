@@ -1,0 +1,88 @@
+/***** OVERLAY PAGE CSS ONLY HERE *****/
+@font-face 
+{
+    font-family: KillerElephant;
+    src: url('../fonts/killerelephant.ttf');
+}
+
+@font-face 
+{
+    font-family: Quantico-Bold;
+    src: url('../fonts/Quantico-Bold.otf');
+}
+
+html
+{
+	height : 600px;
+	width : 960px;
+}
+
+body
+{
+	background: url('../images/bg.jpg') no-repeat;
+  	-webkit-background-size: 960px 600px;
+  	-moz-background-size: 960px 600px;
+  	-o-background-size: 960px 600px;
+  	background-size: 960px 600px;
+	margin : 0;
+}
+
+.hidden 
+{
+	display: none;
+}
+
+.content
+{
+	margin-left : 67px;
+}
+
+.gratulation
+{
+	margin : 0px;
+	width : 388px;
+	height : 139px;
+	background : white;
+}
+
+.content  > p:first-child
+{
+	margin-top : 130px;
+	margin-bottom : 0px;
+	font-family : KillerElephant;
+	font-size : 41pt;
+	color : #2C3D49;
+}
+
+.content > p:nth-child(2)
+{
+	margin: 0px;
+	font-family : Quantico-Bold;
+	font-size : 30pt;
+	color : #9B336F;
+	text-transform:uppercase;
+	width : 388px;
+	line-height : 100%;
+}
+
+.content > p:nth-child(3)
+{
+	margin-top : 56px;
+	margin-bottom : 0px;
+	font-family : Quantico-Bold;
+	font-size : 18pt;
+	color : #FFFFFF;
+	text-transform:uppercase;
+}
+
+.content > p:nth-child(4)
+{
+	margin-top : -5px;
+	margin-bottom : 0px;
+	font-family : Quantico-Bold;
+	font-size : 10pt;
+	color : #FFFFFF;
+	text-transform:uppercase;
+}
+
+/***** END OF OVERLAY CSS *****/
