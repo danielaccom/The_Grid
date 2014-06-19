@@ -98,6 +98,21 @@ function delayedStart() {
    }
 }
 
+function showMissed() {
+   for(var i = 0; i < arrTargetPos.length-1; i++) {
+      var found = false;
+      for(var j = 0; j < stackMove.length; j++) {
+         if(arrTargetPos[i][0] == stackMove[j][0]+1 && arrTargetPos[i][1] == stackMove[j][1]+1)
+         {
+            found = true;
+         }
+      }
+      if(!found) {
+         $(".content table tr:nth-child("+ arrTargetPos[i][1] +") td:nth-child("+ arrTargetPos[i][0] +")").toggleClass("purple");
+      }
+   }
+}
+
    //NEED TO FILL//
 //TARGET RANDOMIZER
 function randomizeTargetPos(){
@@ -244,6 +259,9 @@ function isWin(){
    if(stackCount == 14 && currPos[0] == 5 && currPos[1] == 6 && fufilled){
       clearInterval(timer);
       alert("YOU WON!!!! YEAH... Your time record is " + minutes + " minute(s) " + seconds + " second(s)");
+   } else if(stackCount == 14 && currPos[0] == 5 && currPos[1] == 6) {
+      timerForPurple = setInterval(function(){showMissed()},500);
+      alert("You lose... You missed some");
    }
 }
    
