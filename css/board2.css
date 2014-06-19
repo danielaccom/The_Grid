@@ -445,7 +445,7 @@ td img
 	background: url('../images/down.png') center no-repeat, url('../images/woman2-purple.png') center no-repeat;
 }
 
-.content table tr:not(:first-child) td:not(:last-child).woman2.up.down
+.content table tr:not(:first-child) td:not(:last-child).woman2.purple.up.down
 { 
 	background: url('../images/ver.png') center no-repeat, url('../images/woman2-purple.png') center no-repeat;
 }

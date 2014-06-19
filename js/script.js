@@ -130,7 +130,7 @@ function move(newX,newY){
       stackCount++;
       
       currPos = [newX,newY];
-      $('h1').html(stackCount+'/14');
+      $('h2#counter-desc').html((14-stackCount)+'x');
 }
 
    //NEED TO FILL//
