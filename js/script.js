@@ -11,6 +11,14 @@ var minutes = 0;
 var seconds = 0;
 var timer;
 
+var timerDelay;
+var gameStarted = false;
+var timerForPurple;
+var purpleBlinked = 0;
+var counterDelay = 0;
+var drawX = 1;
+var drawY = 2;
+
 function randomizeTile() {
    for (var i = 2; i <= 7; i++) {
       for (var j = 1; j <= 6; j++) {
@@ -42,12 +50,51 @@ function initGame(){
    //INIT POSITIONS
    currPos = [0,1];
    
-   timer = setInterval(function(){count()},1000);
-   minutes = 0;
-   seconds = 0;
+   $('#text-chart-2').addClass("hidden");
+   gameStart = false;
 
    //RANDOMIZE ARRAY POSITION
    randomizeTargetPos();
+}
+
+function purpleBlip() {
+   if(purpleBlinked > 4) {
+      clearInterval(timerForPurple);
+      timerDelay = setInterval(function(){delayedStart()},100);
+   } else {
+      purpleBlinked++;
+      for(var i = 0; i < arrTargetPos.length; i++) {
+         $(".content table tr:nth-child("+ arrTargetPos[i][1] +") td:nth-child("+ arrTargetPos[i][0] +")").toggleClass("purple");
+      }
+   }
+}
+
+function anotherDelay() {
+   if(counterDelay > 5) {
+      $('#text-chart-2').addClass("hidden");
+   } else {
+      counterDelay++;
+   }
+}
+
+function delayedStart() {
+   if(counterDelay > 36) {
+      counterDelay = 0;
+      clearInterval(timerDelay);
+      $('#text-chart-2').removeClass("hidden");
+      timerDelay = setInterval(function(){anotherDelay()},100);
+      timer = setInterval(function(){count()},1000);
+      minutes = 0;
+      seconds = 0;
+   } else {
+       $(".content table tr:nth-child("+ drawY +") td:nth-child("+ drawX +")").toggleClass("dotted");
+      counterDelay++;
+      drawX++;
+      if(drawX > 6) {
+         drawX = 1;
+         drawY++;
+      }
+   }
 }
 
    //NEED TO FILL//
@@ -222,6 +269,14 @@ function undoLastMove(){
 
 $(document).ready(function(){
    initGame();
+
+   $(document).click(function(){
+      if(!gameStarted) {
+         $('#text-chart-1').toggleClass("hidden");
+         gameStarted = true;
+         timerForPurple = setInterval(function(){purpleBlip()},500);
+      }
+   });
 
    for (var i = 2; i <= 7; i++) {
       for (var j = 1; j <= 6; j++) {
