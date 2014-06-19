@@ -2,8 +2,8 @@ body
 {
 	height :100%;
 	width : 100%;
-	margin-left: 196px;
-	margin-top: 34px;
+	margin-left: 0px;
+	margin-top: 0px;
 	background: url('../images/bg.jpg') no-repeat center center fixed; 
   	-webkit-background-size: 960px 600px;
   	-moz-background-size: 960px 600px;
@@ -21,8 +21,8 @@ body
 }
 
 .left-side {
-	margin-left: 20px;
-	margin-right: 24px;
+	margin-left: 15px;
+	margin-right: 22px;
 	width: 238px;
 }
 
@@ -557,4 +557,12 @@ td img
 	visibility : visible;
 	margin-top : 123px;
 	margin-left : 279px;
+}
+
+@media screen and (min-width: 961px) {
+	body {
+    	width: 100%;
+    	max-width: 960px;
+    	margin: 0 auto;
+	}
 }
