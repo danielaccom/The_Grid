@@ -3,13 +3,14 @@ body
 	height :100%;
 	width : 100%;
 	margin-left: 0px;
-	margin-top: 0px;
-	background: url('../images/bg.jpg') no-repeat center center fixed; 
+	margin-top: auto;
+	background: url('../images/bg.jpg') no-repeat; 
   	-webkit-background-size: 960px 600px;
   	-moz-background-size: 960px 600px;
   	-o-background-size: 960px 600px;
   	background-size: 960px 600px;
-	overflow:hidden;
+	overflow:auto;
+	vertical-align: middle;
 }
 
 .hidden {
