@@ -40,18 +40,20 @@ body
 
 .content table
 {
-	height : 443px;
+	height : 444px;
 	width : 100%;
 	border-spacing : 0;
+	border-collapse: collapse;
 }
 
 .content table tr td
 {
 	border : none;
 	text-align : center;
-	height : 16%; 
-	width : 16%;
+	height : 74px; 
+	width : 77px;
 	border-spacing : 0;
+	padding: 0;
 }
 
 td img
