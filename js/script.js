@@ -217,7 +217,7 @@ function isCanUndo(x,y){
 function undoLastMove(){
    currPos = stackMove.pop();
    stackCount--;
-   $('h1').html(stackCount+'/14');
+   $('h2#counter-desc').html((14-stackCount)+'x');
 }
 
 $(document).ready(function(){
