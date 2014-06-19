@@ -281,14 +281,164 @@ td img
 	background: url('../images/man-purple.png') center no-repeat;
 }
 
+.content table tr:not(:first-child) td:not(:last-child).man.purple.left
+{ 
+	background: url('../images/left.png') center no-repeat, url('../images/man-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).man.purple.right
+{ 
+	background: url('../images/right.png') center no-repeat, url('../images/man-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).man.purple.left.right
+{ 
+	background: url('../images/hor.png') center no-repeat, url('../images/man-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).man.purple.left.up
+{ 
+	background: url('../images/left-up.png') center no-repeat, url('../images/man-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).man.purple.left.down
+{ 
+	background: url('../images/left-down.png') center no-repeat, url('../images/man-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).man.purple.right.up
+{ 
+	background: url('../images/right-up.png') center no-repeat, url('../images/man-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).man.purple.right.down
+{ 
+	background: url('../images/right-down.png') center no-repeat, url('../images/man-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).man.purple.up
+{ 
+	background: url('../images/up.png') center no-repeat, url('../images/man-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).man.purple.down
+{ 
+	background: url('../images/down.png') center no-repeat, url('../images/man-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).man.purple.up.down
+{ 
+	background: url('../images/ver.png') center no-repeat, url('../images/man-purple.png') center no-repeat;
+}
+
 .content table tr:not(:first-child) td:not(:last-child).woman1.purple
 { 
 	background: url('../images/woman1-purple.png') center no-repeat;
 }
 
+.content table tr:not(:first-child) td:not(:last-child).woman1.purple.left
+{ 
+	background: url('../images/left.png') center no-repeat, url('../images/woman1-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman1.purple.right
+{ 
+	background: url('../images/right.png') center no-repeat, url('../images/woman1-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman1.purple.left.right
+{ 
+	background: url('../images/hor.png') center no-repeat, url('../images/woman1-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman1.purple.left.up
+{ 
+	background: url('../images/left-up.png') center no-repeat, url('../images/woman1-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman1.purple.left.down
+{ 
+	background: url('../images/left-down.png') center no-repeat, url('../images/woman1-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman1.purple.right.up
+{ 
+	background: url('../images/right-up.png') center no-repeat, url('../images/woman1-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman1.purple.right.down
+{ 
+	background: url('../images/right-down.png') center no-repeat, url('../images/woman1-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman1.purple.up
+{ 
+	background: url('../images/up.png') center no-repeat, url('../images/woman1-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman1.purple.down
+{ 
+	background: url('../images/down.png') center no-repeat, url('../images/woman1-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman1.purple.up.down
+{ 
+	background: url('../images/ver.png') center no-repeat, url('../images/woman1-purple.png') center no-repeat;
+}
+
 .content table tr:not(:first-child) td:not(:last-child).woman2.purple
 { 
 	background: url('../images/woman2-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman2.purple.left
+{ 
+	background: url('../images/left.png') center no-repeat, url('../images/woman2-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman2.purple.right
+{ 
+	background: url('../images/right.png') center no-repeat, url('../images/woman2-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman2.purple.left.right
+{ 
+	background: url('../images/hor.png') center no-repeat, url('../images/woman2-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman2.purple.left.up
+{ 
+	background: url('../images/left-up.png') center no-repeat, url('../images/woman2-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman2.purple.left.down
+{ 
+	background: url('../images/left-down.png') center no-repeat, url('../images/woman2-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman2.purple.right.up
+{ 
+	background: url('../images/right-up.png') center no-repeat, url('../images/woman2-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman2.purple.right.down
+{ 
+	background: url('../images/right-down.png') center no-repeat, url('../images/woman2-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman2.purple.up
+{ 
+	background: url('../images/up.png') center no-repeat, url('../images/woman2.purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman2.purple.down
+{ 
+	background: url('../images/down.png') center no-repeat, url('../images/woman2.purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman2.up.down
+{ 
+	background: url('../images/ver.png') center no-repeat, url('../images/woman2.purple.png') center no-repeat;
 }
 
 /* RIGHT SIDE */
