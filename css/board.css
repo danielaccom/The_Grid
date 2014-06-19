@@ -21,9 +21,17 @@ body
 }
 
 .left-side {
-	margin-left: 13px;
-	margin-right: 17px;
+	margin-left: 20px;
+	margin-right: 24px;
 	width: 238px;
+}
+
+/* BUTTON START */
+#btn-start
+{
+	margin-top : 58px;
+	margin-bottom : 46px;
+	margin-left : 65px;
 }
 
 /* SPIELANLEITUNG */
@@ -84,29 +92,27 @@ body
 
 
 /*END OF SPIELANLEITUNG */
-
 .content
 {
 	margin : 0;
+	padding-top: 60px;
 	width : 462px;
 }
 
 .content table
 {
-	height : 444px;
+	height : 443px;
 	width : 100%;
 	border-spacing : 0;
-	border-collapse: collapse;
 }
 
 .content table tr td
 {
 	border : none;
 	text-align : center;
-	height : 74px; 
-	width : 77px;
+	height : 16%; 
+	width : 16%;
 	border-spacing : 0;
-	padding: 0;
 }
 
 td img
@@ -117,6 +123,11 @@ td img
 .content table tr:not(:first-child) td:not(:last-child).man
 { 
 	background: url('../images/man.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).man.dotted
+{ 
+	background: url('../images/dot.png') center no-repeat, url('../images/man.png') center no-repeat;
 }
 
 .content table tr:not(:first-child) td:not(:last-child).man.left
@@ -174,6 +185,11 @@ td img
 	background: url('../images/woman1.png') center no-repeat;
 }
 
+.content table tr:not(:first-child) td:not(:last-child).woman1.dotted
+{ 
+	background: url('../images/dot.png') center no-repeat, url('../images/woman1.png') center no-repeat;
+}
+
 .content table tr:not(:first-child) td:not(:last-child).woman1.left
 { 
 	background: url('../images/left.png') center no-repeat, url('../images/woman1.png') center no-repeat;
@@ -227,6 +243,11 @@ td img
 .content table tr:not(:first-child) td:not(:last-child).woman2
 { 
 	background: url('../images/woman2.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman2.dotted
+{ 
+	background: url('../images/dot.png') center no-repeat, url('../images/woman2.png') center no-repeat;
 }
 
 .content table tr:not(:first-child) td:not(:last-child).woman2.left
@@ -284,12 +305,215 @@ td img
 	background: url('../images/man-purple.png') center no-repeat;
 }
 
+.content table tr:not(:first-child) td:not(:last-child).man.purple.dotted
+{ 
+	background: url('../images/dot.png') center no-repeat, url('../images/man-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).man.purple.left
+{ 
+	background: url('../images/left.png') center no-repeat, url('../images/man-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).man.purple.right
+{ 
+	background: url('../images/right.png') center no-repeat, url('../images/man-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).man.purple.left.right
+{ 
+	background: url('../images/hor.png') center no-repeat, url('../images/man-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).man.purple.left.up
+{ 
+	background: url('../images/left-up.png') center no-repeat, url('../images/man-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).man.purple.left.down
+{ 
+	background: url('../images/left-down.png') center no-repeat, url('../images/man-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).man.purple.right.up
+{ 
+	background: url('../images/right-up.png') center no-repeat, url('../images/man-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).man.purple.right.down
+{ 
+	background: url('../images/right-down.png') center no-repeat, url('../images/man-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).man.purple.up
+{ 
+	background: url('../images/up.png') center no-repeat, url('../images/man-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).man.purple.down
+{ 
+	background: url('../images/down.png') center no-repeat, url('../images/man-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).man.purple.up.down
+{ 
+	background: url('../images/ver.png') center no-repeat, url('../images/man-purple.png') center no-repeat;
+}
+
 .content table tr:not(:first-child) td:not(:last-child).woman1.purple
 { 
 	background: url('../images/woman1-purple.png') center no-repeat;
 }
 
+.content table tr:not(:first-child) td:not(:last-child).woman1.purple.dotted
+{ 
+	background: url('../images/dot.png') center no-repeat, url('../images/woman1-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman1.purple.left
+{ 
+	background: url('../images/left.png') center no-repeat, url('../images/woman1-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman1.purple.right
+{ 
+	background: url('../images/right.png') center no-repeat, url('../images/woman1-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman1.purple.left.right
+{ 
+	background: url('../images/hor.png') center no-repeat, url('../images/woman1-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman1.purple.left.up
+{ 
+	background: url('../images/left-up.png') center no-repeat, url('../images/woman1-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman1.purple.left.down
+{ 
+	background: url('../images/left-down.png') center no-repeat, url('../images/woman1-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman1.purple.right.up
+{ 
+	background: url('../images/right-up.png') center no-repeat, url('../images/woman1-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman1.purple.right.down
+{ 
+	background: url('../images/right-down.png') center no-repeat, url('../images/woman1-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman1.purple.up
+{ 
+	background: url('../images/up.png') center no-repeat, url('../images/woman1-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman1.purple.down
+{ 
+	background: url('../images/down.png') center no-repeat, url('../images/woman1-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman1.purple.up.down
+{ 
+	background: url('../images/ver.png') center no-repeat, url('../images/woman1-purple.png') center no-repeat;
+}
+
 .content table tr:not(:first-child) td:not(:last-child).woman2.purple
 { 
 	background: url('../images/woman2-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman2.purple.dotted
+{ 
+	background: url('../images/dot.png') center no-repeat, url('../images/woman2-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman2.purple.left
+{ 
+	background: url('../images/left.png') center no-repeat, url('../images/woman2-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman2.purple.right
+{ 
+	background: url('../images/right.png') center no-repeat, url('../images/woman2-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman2.purple.left.right
+{ 
+	background: url('../images/hor.png') center no-repeat, url('../images/woman2-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman2.purple.left.up
+{ 
+	background: url('../images/left-up.png') center no-repeat, url('../images/woman2-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman2.purple.left.down
+{ 
+	background: url('../images/left-down.png') center no-repeat, url('../images/woman2-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman2.purple.right.up
+{ 
+	background: url('../images/right-up.png') center no-repeat, url('../images/woman2-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman2.purple.right.down
+{ 
+	background: url('../images/right-down.png') center no-repeat, url('../images/woman2-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman2.purple.up
+{ 
+	background: url('../images/up.png') center no-repeat, url('../images/woman2-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman2.purple.down
+{ 
+	background: url('../images/down.png') center no-repeat, url('../images/woman2-purple.png') center no-repeat;
+}
+
+.content table tr:not(:first-child) td:not(:last-child).woman2.purple.up.down
+{ 
+	background: url('../images/ver.png') center no-repeat, url('../images/woman2-purple.png') center no-repeat;
+}
+
+/* RIGHT SIDE */
+.right-side{
+	margin-left:0px;
+	height:600px;
+	width:199px;
+	background:url('../images/connector-splat.png');
+	background-repeat:no-repeat;
+}
+
+.counter{
+	margin-top:70px;
+	margin-left:105px;
+	font-size:24px;
+	font-family : KillerElephant;
+	color : white;
+}
+
+#btn-ziel{
+	margin-top:325px;
+}
+
+/*	TEXT-CHART-1	*/
+#text-chart-1
+{
+	position : absolute;
+	visibility : visible;
+	margin-top : 123px;
+	margin-left : 279px;
+}
+
+#text-chart-2
+{
+	position : absolute;
+	visibility : hidden;
+	margin-top : 123px;
+	margin-left : 279px;
 }
