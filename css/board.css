@@ -60,16 +60,22 @@ body
 	font-family : KillerElephant;
 	color : #AC678C;
 	font-size : 12.61pt;
+	cursor : pointer;
+	background-image: url(../images/spielanleitungBG-1.png);
+	background-size: 234px 39px;
 }
 
 .spielanleitung p
 {
 	padding-left : 16px;
 	padding-top : 18px;
+	margin-top : 0px;
 	margin-bottom : 0px;
 	font-family : Quantico-Regular;
 	font-size : 10pt;
 	color : #2C3D49;
+	background-image: url(../images/spielanleitungBG-2.png);
+	background-size: 234px 94px;
 }
 
 .spielanleitung ol
@@ -78,6 +84,8 @@ body
 	margin-bottom : 0px;
 	padding-left : 35px;
 	padding-right : 9px;
+	background-image: url(../images/spielanleitungBG-3.png);
+	background-size: 234px 247px;
 }
 
 .spielanleitung li

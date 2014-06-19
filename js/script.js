@@ -86,6 +86,7 @@ function delayedStart() {
       timer = setInterval(function(){count()},1000);
       minutes = 0;
       seconds = 0;
+	  
    } else {
        $(".content table tr:nth-child("+ drawY +") td:nth-child("+ drawX +")").toggleClass("dotted");
       counterDelay++;
@@ -280,12 +281,20 @@ function autoConnectorAlert(){
 
 $(document).ready(function(){
    initGame();
+   
+    $(".spielanleitung h2").click(function() 
+	{
+		$(".spielanleitung p").slideToggle( "slow" );
+		$(".spielanleitung ol").slideToggle( "slow" );
+	});
 
    $(document).click(function(){
       if(!gameStarted) {
-         $('#text-chart-1').toggleClass("hidden");
-         gameStarted = true;
-         timerForPurple = setInterval(function(){purpleBlip()},500);
+		$(".spielanleitung p").slideUp( "slow" );
+		$(".spielanleitung ol").slideUp( "slow" );
+        $('#text-chart-1').toggleClass("hidden");
+        gameStarted = true;
+        timerForPurple = setInterval(function(){purpleBlip()},500);
       }
    });
 
