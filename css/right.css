@@ -1,0 +1,21 @@
+
+
+.right-side{
+	margin-left:16px;
+	height:600px;
+	width:219px;
+	background:url('../images/connector-splat.png');
+	background-repeat:no-repeat;
+}
+
+.counter{
+	margin-top:70px;
+	margin-left:105px;
+	font-size:24px;
+	font-family : KillerElephant;
+	color : white;
+}
+
+#btn-ziel{
+	margin-top:275px;
+}
