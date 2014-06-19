@@ -48,7 +48,6 @@ body
 }
 
 .spielanleitung {
-	background-image: url(../images/spielanleitungBG.png);
 	width: 234px;
 	height : 387px;
 }
@@ -66,7 +65,7 @@ body
 .spielanleitung p
 {
 	padding-left : 16px;
-	margin-top : 18px;
+	padding-top : 18px;
 	margin-bottom : 0px;
 	font-family : Quantico-Regular;
 	font-size : 10pt;

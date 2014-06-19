@@ -1,0 +1,18 @@
+.spielanleitung h2
+{
+	cursor : pointer;
+	background-image: url(../images/spielanleitungBG-1.png);
+	background-size: 234px 39px;
+}
+
+.spielanleitung p
+{
+	background-image: url(../images/spielanleitungBG-2.png);
+	background-size: 234px 94px;
+}
+
+.spielanleitung ol
+{
+	background-image: url(../images/spielanleitungBG-3.png);
+	background-size: 234px 247px;
+}
