@@ -21,8 +21,8 @@ body
 }
 
 .left-side {
-	margin-left: 13px;
-	margin-right: 17px;
+	margin-left: 20px;
+	margin-right: 24px;
 	width: 238px;
 }
 
@@ -84,7 +84,6 @@ body
 
 
 /*END OF SPIELANLEITUNG */
-
 .content
 {
 	margin : 0;
@@ -93,20 +92,18 @@ body
 
 .content table
 {
-	height : 444px;
+	height : 443px;
 	width : 100%;
 	border-spacing : 0;
-	border-collapse: collapse;
 }
 
 .content table tr td
 {
 	border : none;
 	text-align : center;
-	height : 74px; 
-	width : 77px;
+	height : 16%; 
+	width : 16%;
 	border-spacing : 0;
-	padding: 0;
 }
 
 td img
