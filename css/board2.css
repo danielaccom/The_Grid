@@ -26,6 +26,14 @@ body
 	width: 238px;
 }
 
+/* BUTTON START */
+#btn-start
+{
+	margin-top : 58px;
+	margin-bottom : 46px;
+	margin-left : 65px;
+}
+
 /* SPIELANLEITUNG */
 @font-face 
 {
