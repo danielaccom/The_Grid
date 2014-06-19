@@ -470,3 +470,20 @@ td img
 #btn-ziel{
 	margin-top:325px;
 }
+
+/*	TEXT-CHART-1	*/
+#text-chart-1
+{
+	position : absolute;
+	visibility : visible;
+	margin-top : 123px;
+	margin-left : 279px;
+}
+
+#text-chart-2
+{
+	position : absolute;
+	visibility : hidden;
+	margin-top : 123px;
+	margin-left : 279px;
+}
