@@ -548,22 +548,23 @@ td img
 {
 	position : absolute;
 	visibility : visible;
-	margin-top : 123px;
-	margin-left : 279px;
+	top : 123px;
+	left : 279px;
 }
 
 #text-chart-2
 {
 	position : absolute;
 	visibility : visible;
-	margin-top : 123px;
-	margin-left : 279px;
+	top : 123px;
+	left : 279px;
 }
 
 @media screen and (min-width: 961px) {
 	body {
     	width: 100%;
     	max-width: 960px;
+		background: url('../images/bg.jpg') no-repeat center center fixed;
     	margin: 0 auto;
 	}
 }
