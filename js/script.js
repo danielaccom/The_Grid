@@ -12,7 +12,10 @@ var seconds = 0;
 var timer;
 
 var timerDelay;
-var gameStarted = false;
+
+var state;//STATE : splash, start_animation, playing, win , lose_animation
+
+
 var timerForPurple;
 var purpleBlinked = 0;
 var counterDelay = 0;
@@ -41,11 +44,21 @@ function count()
 
 //FUNCTION DECLARATION
 function initGame(){
+   
+   
+   resetAllImage();
+   
+   state = 'splash';
+   $('#text-chart-1').removeClass("hidden");
+   
    randomizeTile();
 
    //INIT UNDO STACK
    stackMove = new Array();
    stackCount = 0;
+   
+   autoConnectorAlert();
+   $('h2#counter-desc').html((14-stackCount)+'x');//DISPLAY CONNECTOR
    
    //INIT POSITIONS
    currPos = [0,1];
@@ -61,6 +74,8 @@ function purpleBlip() {
    if(purpleBlinked > 4) {
       clearInterval(timerForPurple);
       timerDelay = setInterval(function(){delayedStart()},100);
+	  purpleBlinked = 0;
+	  return;
    } else {
       purpleBlinked++;
       for(var i = 0; i < arrTargetPos.length; i++) {
@@ -72,6 +87,10 @@ function purpleBlip() {
 function anotherDelay() {
    if(counterDelay > 5) {
       $('#text-chart-2').addClass("hidden");
+	  state = 'playing';
+	  clearInterval(timerDelay);
+	  counterDelay = 0;
+	  return;
    } else {
       counterDelay++;
    }
@@ -86,9 +105,12 @@ function delayedStart() {
       timer = setInterval(function(){count()},1000);
       minutes = 0;
       seconds = 0;
+	  drawX = 1;
+	  drawY = 2;
+	  return;
 	  
    } else {
-       $(".content table tr:nth-child("+ drawY +") td:nth-child("+ drawX +")").toggleClass("dotted");
+       $(".content table tr:nth-child("+ drawY +") td:nth-child("+ drawX +")").addClass("dotted");
       counterDelay++;
       drawX++;
       if(drawX > 6) {
@@ -99,17 +121,24 @@ function delayedStart() {
 }
 
 function showMissed() {
-   for(var i = 0; i < arrTargetPos.length-1; i++) {
-      var found = false;
-      for(var j = 0; j < stackMove.length; j++) {
-         if(arrTargetPos[i][0] == stackMove[j][0]+1 && arrTargetPos[i][1] == stackMove[j][1]+1)
-         {
-            found = true;
-         }
-      }
-      if(!found) {
-         $(".content table tr:nth-child("+ arrTargetPos[i][1] +") td:nth-child("+ arrTargetPos[i][0] +")").toggleClass("purple");
-      }
+   if(counterDelay > 5) {
+		clearInterval(timerForPurple);
+		counterDelay = 0;
+		initGame();
+   } else {
+		counterDelay++;
+		for(var i = 0; i < arrTargetPos.length-1; i++) {
+			var found = false;
+			for(var j = 0; j < stackMove.length; j++) {
+				if(arrTargetPos[i][0] == stackMove[j][0]+1 && arrTargetPos[i][1] == stackMove[j][1]+1)
+				{
+					found = true;
+				}
+			}
+			if(!found) {
+				$(".content table tr:nth-child("+ arrTargetPos[i][1] +") td:nth-child("+ arrTargetPos[i][0] +")").toggleClass("purple");
+			}
+		}
    }
 }
 
@@ -258,6 +287,7 @@ function isWin(){
    }
    if(stackCount == 14 && currPos[0] == 5 && currPos[1] == 6 && fufilled){
       clearInterval(timer);
+	  state='win';
       alert("YOU WON!!!! YEAH... Your time record is " + minutes + " minute(s) " + seconds + " second(s)");
    } else if(stackCount == 14 && currPos[0] == 5 && currPos[1] == 6) {
       timerForPurple = setInterval(function(){showMissed()},500);
@@ -292,9 +322,21 @@ function undoLastMove(){
 function autoConnectorAlert(){
 	if(stackCount == 14){
 		$('.counter').addClass('blinking');
-	}else if(stackCount == 13){
+	}else{
 		$('.counter').removeClass('blinking');
 	}
+}
+
+function resetAllImage(){
+	for (var i = 2; i <= 7; i++) {
+      for (var j = 1; j <= 6; j++) {
+         $('table tr:nth-child('+ i +') td:nth-child('+ j +').cell').removeClass('up');
+         $('table tr:nth-child('+ i +') td:nth-child('+ j +').cell').removeClass('down');
+         $('table tr:nth-child('+ i +') td:nth-child('+ j +').cell').removeClass('left');
+         $('table tr:nth-child('+ i +') td:nth-child('+ j +').cell').removeClass('right');
+         $('table tr:nth-child('+ i +') td:nth-child('+ j +').cell').removeClass('dotted');
+      }
+   }
 }
 
 $(document).ready(function(){
@@ -307,11 +349,11 @@ $(document).ready(function(){
 	});
 
    $(document).click(function(){
-      if(!gameStarted) {
+      if(state =='splash') {
+		state = 'start_animation';
 		$(".spielanleitung p").slideUp( "slow" );
 		$(".spielanleitung ol").slideUp( "slow" );
-        $('#text-chart-1').toggleClass("hidden");
-        gameStarted = true;
+        $('#text-chart-1').addClass("hidden");
         timerForPurple = setInterval(function(){purpleBlip()},500);
       }
    });
@@ -319,53 +361,56 @@ $(document).ready(function(){
    for (var i = 2; i <= 7; i++) {
       for (var j = 1; j <= 6; j++) {
          $('table tr:nth-child('+ i +') td:nth-child('+ j +').cell').click(function(){
-            if(isMoveValid(this.cellIndex,this.parentNode.rowIndex) && currPos[0]+1 == this.cellIndex) {
-               var x = currPos[0]+1;
-               var y = currPos[1]+1;
-               $(this).toggleClass("left");
-               $('table tr:nth-child('+ y +') td:nth-child('+ x +').cell').toggleClass("right");
-               move(this.cellIndex,this.parentNode.rowIndex);
-               isWin();
-            } else if(isMoveValid(this.cellIndex,this.parentNode.rowIndex) && currPos[0]-1 == this.cellIndex) {
-               var x = currPos[0]+1;
-               var y = currPos[1]+1;
-               $(this).toggleClass("right");
-               $('table tr:nth-child('+ y +') td:nth-child('+ x +').cell').toggleClass("left");
-               move(this.cellIndex,this.parentNode.rowIndex);
-               isWin();
-            } else if(isMoveValid(this.cellIndex,this.parentNode.rowIndex) && currPos[1]+1 == this.parentNode.rowIndex) {
-               var x = currPos[0]+1;
-               var y = currPos[1]+1;
-               $(this).toggleClass("up");
-               $('table tr:nth-child('+ y +') td:nth-child('+ x +').cell').toggleClass("down");
-               move(this.cellIndex,this.parentNode.rowIndex);
-               isWin();
-            } else if(isMoveValid(this.cellIndex,this.parentNode.rowIndex) && currPos[1]-1 == this.parentNode.rowIndex) {
-               var x = currPos[0]+1;
-               var y = currPos[1]+1;
-               $(this).toggleClass("down");
-               $('table tr:nth-child('+ y +') td:nth-child('+ x +').cell').toggleClass("up");
-               move(this.cellIndex,this.parentNode.rowIndex);
-               isWin();
-            } else if(isCanUndo(this.cellIndex,this.parentNode.rowIndex)) {
-               var tempCurrPos = currPos;
-			      undoLastMove();
-			      //GERAK KE KIRI
-				   if(tempCurrPos[0]-1 == currPos[0] && tempCurrPos[1] == currPos[1]){
-					    $(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("left");
-					    $(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("right");
-				   }if(tempCurrPos[0]+1 == currPos[0] && tempCurrPos[1] == currPos[1]){
-					    $(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("right");
-					    $(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("left");
-				   }if(tempCurrPos[0] == currPos[0] && tempCurrPos[1] == currPos[1]+1){
-					    $(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("up");
-					    $(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("down");
-				   }if(tempCurrPos[0] == currPos[0] && tempCurrPos[1] == currPos[1]-1){
-					    $(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("down");
-					    $(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("up");
-				   }
-            }
-         });
+			if(state=='playing'){
+				if(isMoveValid(this.cellIndex,this.parentNode.rowIndex) && currPos[0]+1 == this.cellIndex) {
+				   var x = currPos[0]+1;
+				   var y = currPos[1]+1;
+				   $(this).toggleClass("left");
+				   $('table tr:nth-child('+ y +') td:nth-child('+ x +').cell').toggleClass("right");
+				   move(this.cellIndex,this.parentNode.rowIndex);
+				   isWin();
+				} else if(isMoveValid(this.cellIndex,this.parentNode.rowIndex) && currPos[0]-1 == this.cellIndex) {
+				   var x = currPos[0]+1;
+				   var y = currPos[1]+1;
+				   $(this).toggleClass("right");
+				   $('table tr:nth-child('+ y +') td:nth-child('+ x +').cell').toggleClass("left");
+				   move(this.cellIndex,this.parentNode.rowIndex);
+				   isWin();
+				} else if(isMoveValid(this.cellIndex,this.parentNode.rowIndex) && currPos[1]+1 == this.parentNode.rowIndex) {
+				   var x = currPos[0]+1;
+				   var y = currPos[1]+1;
+				   $(this).toggleClass("up");
+				   $('table tr:nth-child('+ y +') td:nth-child('+ x +').cell').toggleClass("down");
+				   move(this.cellIndex,this.parentNode.rowIndex);
+				   isWin();
+				} else if(isMoveValid(this.cellIndex,this.parentNode.rowIndex) && currPos[1]-1 == this.parentNode.rowIndex) {
+				   var x = currPos[0]+1;
+				   var y = currPos[1]+1;
+				   $(this).toggleClass("down");
+				   $('table tr:nth-child('+ y +') td:nth-child('+ x +').cell').toggleClass("up");
+				   move(this.cellIndex,this.parentNode.rowIndex);
+				   isWin();
+				} else if(isCanUndo(this.cellIndex,this.parentNode.rowIndex)) {
+				   var tempCurrPos = currPos;
+					  undoLastMove();
+					  console.log(state);
+					  //GERAK KE KIRI
+					   if(tempCurrPos[0]-1 == currPos[0] && tempCurrPos[1] == currPos[1]){
+							$(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("left");
+							$(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("right");
+					   }if(tempCurrPos[0]+1 == currPos[0] && tempCurrPos[1] == currPos[1]){
+							$(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("right");
+							$(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("left");
+					   }if(tempCurrPos[0] == currPos[0] && tempCurrPos[1] == currPos[1]+1){
+							$(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("up");
+							$(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("down");
+					   }if(tempCurrPos[0] == currPos[0] && tempCurrPos[1] == currPos[1]-1){
+							$(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("down");
+							$(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("up");
+					   }
+				}
+			}
+		 });
       }  
    }
 });
