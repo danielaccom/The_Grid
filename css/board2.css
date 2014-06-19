@@ -95,6 +95,7 @@ body
 .content
 {
 	margin : 0;
+	padding-top: 60px;
 	width : 462px;
 }
 
@@ -436,17 +437,17 @@ td img
 
 .content table tr:not(:first-child) td:not(:last-child).woman2.purple.up
 { 
-	background: url('../images/up.png') center no-repeat, url('../images/woman2.purple.png') center no-repeat;
+	background: url('../images/up.png') center no-repeat, url('../images/woman2-purple.png') center no-repeat;
 }
 
 .content table tr:not(:first-child) td:not(:last-child).woman2.purple.down
 { 
-	background: url('../images/down.png') center no-repeat, url('../images/woman2.purple.png') center no-repeat;
+	background: url('../images/down.png') center no-repeat, url('../images/woman2-purple.png') center no-repeat;
 }
 
 .content table tr:not(:first-child) td:not(:last-child).woman2.up.down
 { 
-	background: url('../images/ver.png') center no-repeat, url('../images/woman2.purple.png') center no-repeat;
+	background: url('../images/ver.png') center no-repeat, url('../images/woman2-purple.png') center no-repeat;
 }
 
 /* RIGHT SIDE */
