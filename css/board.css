@@ -502,7 +502,7 @@ td img
 
 
 .counter.blinking{
-	-webkit-animation: blinkingText 2s;
+	-webkit-animation: blinkingText 0.5s;
 	-webkit-animation-iteration-count: infinite;
 	-webkit-animation-direction:alternate;
 	-webkit-animation-timing-function:linear;
@@ -515,8 +515,8 @@ td img
 
 /* ANIMATION */
 @-webkit-keyframes blinkingText{
-   0% {color:black;}
-   100% {color:white;}
+   0% {color:white;}
+   100% {color:red;}
 }
 
 @keyframes blinkingText{
