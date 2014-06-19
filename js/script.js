@@ -271,7 +271,7 @@ function undoLastMove(){
 
 //FOR TOGGLE BLINKING
 function autoConnectorAlert(){
-	if(stackCount == 14 && !isWin()){
+	if(stackCount == 14){
 		$('.counter').addClass('blinking');
 	}else if(stackCount == 13){
 		$('.counter').removeClass('blinking');
