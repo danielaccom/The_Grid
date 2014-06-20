@@ -25,7 +25,7 @@ body
   	-o-background-size: 960px 600px;
   	background-size: 960px 600px;
 	margin : 0px 0px 0px 0px;
-	height : 600px;
+	height : 471px;
 	width : 960px;
 }
 
@@ -226,9 +226,26 @@ form input[type=submit]:active, form input[type=reset]:active
 .danke
 {
 	position : relative;
-	z-index : 123;
+	z-index : 2;
 	margin-top : -182px;
-	margin-left : -10px;
+	margin-left : -15px;
+	
+}
+
+.gewinne
+{
+	position : relative;
+	z-index : 2;
+	margin-top : -460px;
+	margin-left : 520px;
+}
+
+.schild
+{
+	position : relative;
+	z-index : 1;
+	margin-top : -578px;
+	margin-left : 385px;
 }
 
 /***** END OF OVERLAY CSS *****/
