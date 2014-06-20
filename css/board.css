@@ -588,6 +588,45 @@ td img
 	padding-left: 50px;
 }
 
+#text-chart-3a
+{
+	position : absolute;
+	visibility : visible;
+	margin: auto;
+	top : 0;
+	bottom: 0;
+	left : 0;
+	right: 0;
+	padding-bottom: 250px;
+	padding-left: 130px;
+}
+
+#text-chart-3b
+{
+	position : absolute;
+	visibility : visible;
+	margin: auto;
+	top : 0;
+	bottom: 0;
+	left : 0;
+	right: 0;
+	padding-top: 30px;
+	padding-left: 420px;
+}
+
+#text-chart-3c
+{
+	position : absolute;
+	visibility : visible;
+	margin: auto;
+	top : 0;
+	bottom: 0;
+	left : 0;
+	right: 0;
+	padding-top: 200px;
+	padding-left: 450px;
+}
+
 @media screen and (min-width: 961px) {
 	body {
     	width: 100%;

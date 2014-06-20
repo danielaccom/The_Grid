@@ -1,4 +1,5 @@
-/* VARIABLE DECLARATION */
+/*** VARIABLE DECLARATION ***/
+
 var stackMove;//STACK FOR UNDO
 var stackCount;
 var currPos;////CURRENT POSITION IN X,Y STARTS AT 0
@@ -14,169 +15,95 @@ var timerForPurple;
 var purpleBlinked = 0;
 var counterDelay = 0;
 
-/* FUNCTION DECLARATION */
+/*** FUNCTION DECLARATION ***/
 
+/* PRE-GAME FUNCTIONS */
 
-
-function count()
-{
-   seconds++;
-   if(seconds == 60) {
-      minutes++;
-      seconds = 0;
-   }
-
-   //$('h2').html(minutes + " minute(s) " + seconds + " second(s)");
+// Game Initialization
+function initGame(){
+   resetAllImage();
+   state = 'splash';
+   $('#text-chart-1').removeClass("hidden");
+   randomizeTile();
+   stackMove = new Array();
+   stackCount = 0;
+   autoConnectorAlert();
+   $('h2#counter-desc').html((14-stackCount)+'x');
+   currPos = [0,1];
+   $('#text-chart-2').addClass("hidden");
+   $('#text-chart-3a').addClass("hidden");
+   $('#text-chart-3b').addClass("hidden");
+   $('#text-chart-3c').addClass("hidden");
+   gameStart = false;
+   randomizeTargetPos();
 }
 
-
-
-function purpleBlip() {
-   if(purpleBlinked > 4) {
-      clearInterval(timerForPurple);
-      timerDelay = setInterval(function(){delayedStart()},100);
-	  purpleBlinked = 0;
-	  return;
-   } else {
-      purpleBlinked++;
-      for(var i = 0; i < arrTargetPos.length; i++) {
-         $(".content table tr:nth-child("+ arrTargetPos[i][1] +") td:nth-child("+ arrTargetPos[i][0] +")").toggleClass("purple");
+// Removing image additions
+function resetAllImage(){
+   for (var i = 2; i <= 7; i++) {
+      for (var j = 1; j <= 6; j++) {
+         $('table tr:nth-child('+ i +') td:nth-child('+ j +').cell').removeClass('up');
+         $('table tr:nth-child('+ i +') td:nth-child('+ j +').cell').removeClass('down');
+         $('table tr:nth-child('+ i +') td:nth-child('+ j +').cell').removeClass('left');
+         $('table tr:nth-child('+ i +') td:nth-child('+ j +').cell').removeClass('right');
+         $('table tr:nth-child('+ i +') td:nth-child('+ j +').cell').removeClass('purple');
+         $('table tr:nth-child('+ i +') td:nth-child('+ j +').cell').removeClass('dotted');
       }
    }
 }
 
-function anotherDelay() {
-   if(counterDelay > 5) {
-      $('#text-chart-2').addClass("hidden");
-	  state = 'playing';
-     $(".content table tr:nth-child(2) td:nth-child(2)").addClass("dotted");
-     $(".content table tr:nth-child(3) td:nth-child(1)").addClass("dotted");
-     clearInterval(timerDelay);
-	  counterDelay = 0;
-	  return;
-   } else {
-      counterDelay++;
-   }
-}
-
-function delayedStart() {
-   if(counterDelay > 24) {
-      counterDelay = 0;
-      clearInterval(timerDelay);
-      $('#text-chart-2').removeClass("hidden");
-      timerDelay = setInterval(function(){anotherDelay()},100);
-      timer = setInterval(function(){count()},1000);
-      minutes = 0;
-      seconds = 0;
-	  //drawX = 1;
-	  //drawY = 2;
-	  return;
-	  
-   } else if(counterDelay > 12) {
-       //$(".content table tr:nth-child("+ drawY +") td:nth-child("+ drawX +")").addClass("dotted");
-      if(counterDelay%2==0) {
-         $('#btn-ziel img:nth-child(1)').css('margin-left','0px');
-         $('#btn-ziel img:nth-child(2)').css('margin-left','18px');
-
-      } else {
-         $('#btn-ziel img:nth-child(1)').css('margin-left','9px');
-         $('#btn-ziel img:nth-child(2)').css('margin-left','9px');
+// Randomize tile class
+function randomizeTile() {
+   for (var i = 2; i <= 7; i++) {
+      for (var j = 1; j <= 6; j++) {
+         var classes = ["man","woman1","man","woman2"];
+         $('table tr:nth-child('+ i +') td:nth-child('+ j +').cell').addClass(classes[Math.round(Math.random()*(classes.length-1))]);
       }
-      counterDelay++;
-      //drawX++;
-      //if(drawX > 6) {
-      //   drawX = 1;
-      //   drawY++;
-      //}
-   } else {
-       //$(".content table tr:nth-child("+ drawY +") td:nth-child("+ drawX +")").addClass("dotted");
-      if(counterDelay%2==0) {
-         $('#arrow-start').css('padding-left','10px');
-      } else {
-         $('#arrow-start').css('padding-left','20px');
-      }
-      counterDelay++;
-      //drawX++;
-      //if(drawX > 6) {
-      //   drawX = 1;
-      //   drawY++;
-      //}
    }
 }
 
-function showMissed() {
-   if(counterDelay > 5) {
-		clearInterval(timerForPurple);
-		counterDelay = 0;
-		initGame();
-   } else {
-		counterDelay++;
-		for(var i = 0; i < arrTargetPos.length-1; i++) {
-			var found = false;
-			for(var j = 0; j < stackMove.length; j++) {
-				if(arrTargetPos[i][0] == stackMove[j][0]+1 && arrTargetPos[i][1] == stackMove[j][1]+1)
-				{
-					found = true;
-				}
-			}
-			if(!found) {
-				$(".content table tr:nth-child("+ arrTargetPos[i][1] +") td:nth-child("+ arrTargetPos[i][0] +")").toggleClass("purple");
-			}
-		}
+// Render the connector counter by checking the move count
+function autoConnectorAlert(){
+   if(stackCount == 14 && !(currPos[0] == 5 && currPos[1] == 6)){
+      $('.counter').addClass('blinking');
+   }else{
+      $('.counter').removeClass('blinking');
    }
 }
 
-   //NEED TO FILL//
-//TARGET RANDOMIZER
+// Randomize some tiles to be a targeted tile
 function randomizeTargetPos(){
-   //DUMMY RANDOMIZER
    var row, col;
    
    do{
-		var i = 0;
-		while (i < 4)
-		{
-			row = Math.floor((Math.random() * 6) + 2);
-			col = Math.floor((Math.random() * 5) + 1);
+      var i = 0;
+      while (i < 4)
+      {
+         row = Math.floor((Math.random() * 6) + 2);
+         col = Math.floor((Math.random() * 5) + 1);
+         if(isInArray2d(arrTargetPos,[col,row]) || (row == 2 && col == 1))
+         {
 
-			if(isInArray2d(arrTargetPos,[col,row]) || (row == 2 && col == 1))
-			{
-
-			}
-			else
-			{
-				//$(".content table tr:nth-child("+ row +") td:nth-child("+ col +")").toggleClass("pink");
-				arrTargetPos[i] = [col,row];
-				//	arrPinkTiles[i] = [col,row];
-				i++;
-		  }
-		}
-		arrTargetPos[4] = [6,7];
-	}while(!pinkTilesValidator(arrTargetPos));
-	
-	for (i = 0; i < arrTargetPos.length; i++)
-	{
-		$(".content table tr:nth-child("+ arrTargetPos[i][1] +") td:nth-child("+ arrTargetPos[i][0] +")").toggleClass("purple");
-	}
-	
-   //DUMMY RANDOMIZER END
-   //alert(arrTargetPos);
+         }
+         else
+         {
+            arrTargetPos[i] = [col,row];
+            i++;
+         }
+      }
+      arrTargetPos[4] = [6,7];
+   } while(!pinkTilesValidator(arrTargetPos));
+   
+   for (i = 0; i < arrTargetPos.length; i++)
+   {
+      $(".content table tr:nth-child("+ arrTargetPos[i][1] +") td:nth-child("+ arrTargetPos[i][0] +")").toggleClass("purple");
+   }
 }
 
-//COMPARING 2 ARRAY 2D
-function isInArray2d(array2d,element){
-	var i;
-	for(i = 0;i<array2d.length;i++){
-		if(element[0] == array2d[i][0] && element[1] == array2d[i][1])
-			return true;
-	}
-	return false;
-}
-
-//GAME VALIDATOR
+// Checking whole targeted tiles for finding shortest path cost less than 14 moves
 function pinkTilesValidator(arrPinkTiles){
-	var dx = 0;
-	var dy = 0;
+   var dx = 0;
+   var dy = 0;
 
    dx = dx + Math.abs(1 - arrPinkTiles[0][0]);
    dy = dy + Math.abs(2 - arrPinkTiles[0][1]);
@@ -186,19 +113,209 @@ function pinkTilesValidator(arrPinkTiles){
       dx = dx + Math.abs(arrPinkTiles[i-1][0] - arrPinkTiles[i][0]);
       dy = dy + Math.abs(arrPinkTiles[i-1][1] - arrPinkTiles[i][1]);
    }
-	//alert(arrPinkTiles);
-	//alert(dx+dy);
-	
-	if ((dx+dy) <= 14)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+   
+   if ((dx+dy) <= 14)
+   {
+      return true;
+   }
+   else
+   {
+      return false;
+   }
 }
 
+/* ANIMATIONS */
+
+// Make the targeted tiles blinking purple-white continously for 2 seconds
+function purpleBlip() {
+   if(purpleBlinked > 4) {
+      clearInterval(timerForPurple);
+      timerDelay = setInterval(function(){delayedStart()},100);
+     purpleBlinked = 0;
+     return;
+   } else {
+      purpleBlinked++;
+      for(var i = 0; i < arrTargetPos.length; i++) {
+         $(".content table tr:nth-child("+ arrTargetPos[i][1] +") td:nth-child("+ arrTargetPos[i][0] +")").toggleClass("purple");
+      }
+   }
+}
+
+// Show users where to START and where to FINISH
+function delayedStart() {
+   if(counterDelay > 24) {
+      counterDelay = 0;
+      clearInterval(timerDelay);
+      $('#text-chart-2').removeClass("hidden");
+      timerDelay = setInterval(function(){anotherDelay()},100);
+      timer = setInterval(function(){count()},1000);
+      minutes = 0;
+      seconds = 0;
+      return;
+   } else if(counterDelay > 12) {
+      if(counterDelay%2==0) {
+         $('#btn-ziel img:nth-child(1)').css('margin-left','0px');
+         $('#btn-ziel img:nth-child(2)').css('margin-left','18px');
+
+      } else {
+         $('#btn-ziel img:nth-child(1)').css('margin-left','9px');
+         $('#btn-ziel img:nth-child(2)').css('margin-left','9px');
+      }
+      counterDelay++;
+   } else {
+      if(counterDelay%2==0) {
+         $('#arrow-start').css('padding-left','10px');
+      } else {
+         $('#arrow-start').css('padding-left','20px');
+      }
+      counterDelay++;
+   }
+}
+
+// Showing text-chart-2 for 0.5 second & showing first possible moves
+function anotherDelay() {
+   if(counterDelay > 5) {
+      $('#text-chart-2').addClass("hidden");
+     state = 'playing';
+     $(".content table tr:nth-child(2) td:nth-child(2)").addClass("dotted");
+     $(".content table tr:nth-child(3) td:nth-child(1)").addClass("dotted");
+     clearInterval(timerDelay);
+     counterDelay = 0;
+     return;
+   } else {
+      counterDelay++;
+   }
+}
+
+// Showing missed target tiles
+function showMissed() {
+   if(counterDelay > 5) {
+      clearInterval(timerForPurple);
+      counterDelay = 0;
+      initGame();
+   } else {
+      counterDelay++;
+      for(var i = 0; i < arrTargetPos.length-1; i++) {
+         var found = false;
+         for(var j = 0; j < stackMove.length; j++) {
+            if(arrTargetPos[i][0] == stackMove[j][0]+1 && arrTargetPos[i][1] == stackMove[j][1]+1)
+            {
+               found = true;
+            }
+         }
+         if(!found) {
+            $(".content table tr:nth-child("+ arrTargetPos[i][1] +") td:nth-child("+ arrTargetPos[i][0] +")").toggleClass("purple");
+         }
+      }
+   }
+}
+
+/* ON-GAME FUNCTIONS */
+
+// Checking move validity by coordinate and move counter
+function isMoveValid(x,y){
+   if(stackCount > 13) {
+      return false;
+   }
+   
+   if(x >= 0 && x<6 && y > 0 && y<7){
+      if(x == currPos[0]+1 && y == currPos[1]
+         || x == currPos[0]-1 && y == currPos[1]
+         || x == currPos[0] && y == currPos[1] + 1
+         || x == currPos[0] && y == currPos[1] - 1)
+      {
+         var found = false;
+         var i = 0;
+         while(!found && i < stackCount)
+         {
+            if(stackMove[i][0] == x && stackMove[i][1] == y) {
+               found = true;
+            }
+            i++;
+         }
+         return !found;
+      }else{
+         return false;
+      }
+   }else{
+      return false;
+   }
+}
+
+// Update the coordinate pointer(currPos) and moves then render some image
+function move(newX,newY){
+   stackMove.push(currPos);
+   stackCount++;   
+
+   currPos = [newX,newY];
+   var x = currPos[0]+1;
+   var y = currPos[1]+1;
+
+   if(isInArray2d(arrTargetPos,[x,y])) {
+      $('table tr:nth-child('+ y +') td:nth-child('+ x +').cell').addClass("purple");
+   }
+   $('h2#counter-desc').html((14-stackCount)+'x');
+   autoConnectorAlert();
+}
+
+// Check if user can undo their move in the current state
+function isCanUndo(x,y){
+   if(stackCount != 0){
+      if(x == currPos[0] && y == currPos[1]){
+         return true;
+      }else{
+         return false;
+      }
+   }else{
+      return false;
+   }
+}
+
+// Undo user last move (rollback)
+function undoLastMove(){
+   if($('table tr:nth-child('+ (currPos[1]+1) +') td:nth-child('+ (currPos[0]+1) +').cell').hasClass("purple")) {
+      $('table tr:nth-child('+ (currPos[1]+1) +') td:nth-child('+ (currPos[0]+1) +').cell').removeClass("purple");
+   }
+   currPos = stackMove.pop();
+   stackCount--;
+   $('h2#counter-desc').html((14-stackCount)+'x');
+   autoConnectorAlert();
+}
+
+// Check user has solve the game or not
+// If yes, then continue to winning sequences
+// If not and lose, then restart the game
+function isWin(){
+   var count = 0;
+   var fufilled = false;
+   for(var i = 0; i < arrTargetPos.length; i++) {
+      for(var j = 0; j < stackMove.length; j++) {
+         if(arrTargetPos[i][0] == stackMove[j][0]+1 && arrTargetPos[i][1] == stackMove[j][1]+1)
+         {
+            count++;
+         }
+      }
+   }
+
+   if(count > 3) {
+      fufilled = true;
+   } else {
+      fufilled = false;
+   }
+   if(stackCount == 14 && currPos[0] == 5 && currPos[1] == 6 && fufilled){
+      clearInterval(timer);
+      state='win';   
+      $('#text-chart-3a').removeClass("hidden");
+      $('#text-chart-3b').removeClass("hidden");
+      $('#text-chart-3c').removeClass("hidden");
+      alert("YOU WON!!!! YEAH... Your time record is " + minutes + " minute(s) " + seconds + " second(s)");
+   } else if(stackCount == 14 && currPos[0] == 5 && currPos[1] == 6) {
+      timerForPurple = setInterval(function(){showMissed()},500);
+      alert("You lose... You missed some");
+   }
+}
+
+// Render image for displaying possible next moves
 function redrawDot() {
    for (var i = 2; i <= 7; i++) {
       for (var j = 1; j <= 6; j++) {
@@ -224,192 +341,58 @@ function redrawDot() {
    }
 }
 
-//MOVE TO
-function move(newX,newY){
-   stackMove.push(currPos);
-   stackCount++;   
+/* MISC. FUNCTION */
 
-   currPos = [newX,newY];
-   var x = currPos[0]+1;
-   var y = currPos[1]+1;
-
-   if(isInArray2d(arrTargetPos,[x,y])) {
-      $('table tr:nth-child('+ y +') td:nth-child('+ x +').cell').addClass("purple");
+// Clock generator
+function count()
+{
+   seconds++;
+   if(seconds == 60) {
+      minutes++;
+      seconds = 0;
    }
-   $('h2#counter-desc').html((14-stackCount)+'x');
-	autoConnectorAlert();
 }
 
-   //NEED TO FILL//
-//CHECK MOVE VALIDITY, RETURN BOOLEAN
-function isMoveValid(x,y){
-   //DUMMY VALIDATION
-   if(stackCount > 13) {
-      return false;
+// Checking an element on table (2D Array)
+function isInArray2d(array2d,element){
+   var i;
+   for(i = 0;i<array2d.length;i++){
+      if(element[0] == array2d[i][0] && element[1] == array2d[i][1])
+         return true;
    }
-   
-   if(x >= 0 && x<6 && y > 0 && y<7){
-      if(x == currPos[0]+1 && y == currPos[1]
-         || x == currPos[0]-1 && y == currPos[1]
-         || x == currPos[0] && y == currPos[1] + 1
-         || x == currPos[0] && y == currPos[1] - 1)
-      {
-         var found = false;
-         var i = 0;
-         while(!found && i < stackCount)
-         {
-            if(stackMove[i][0] == x && stackMove[i][1] == y) {
-               found = true;
-            }
-            i++;
-         }
-
-         return !found;
-         /*if(stackMove.indexOf([x,y])== -1){
-            alert("yang dimasukin " + [x,y] + " "  + y+" stackmove " +  stackMove);
-            return true;
-         }else{
-            return false;
-         }*/
-      }else{
-         return false;
-      }
-   }else{
-      return false;
-   }
-   //END DUMMY VALIDATION
+   return false;
 }
-   
+
+/* EVENT HANDLING FUNCTION */
+
+// Restart the game
 function restart() {
-   clearInterval(timerForPurple);
+   if(state == 'playing') {
+      clearInterval(timerForPurple);
       counterDelay = 0;
       initGame();
-   state = 'start_animation';
-      //$(".spielanleitung p").slideUp( "slow" );
-      //$(".spielanleitung ol").slideUp( "slow" );
-        $('#text-chart-1').addClass("hidden");
-        timerForPurple = setInterval(function(){purpleBlip()},500);
-}
-
-   //NEED TO FILL
-//CHECK WIN CONDITION
-function isWin(){
-   var count = 0;
-   var fufilled = false;
-   for(var i = 0; i < arrTargetPos.length; i++) {
-      for(var j = 0; j < stackMove.length; j++) {
-         if(arrTargetPos[i][0] == stackMove[j][0]+1 && arrTargetPos[i][1] == stackMove[j][1]+1)
-         {
-            count++;
-         }
-      }
-   }
-
-   if(count > 3) {
-      fufilled = true;
-   } else {
-      fufilled = false;
-   }
-   if(stackCount == 14 && currPos[0] == 5 && currPos[1] == 6 && fufilled){
-      clearInterval(timer);
-	  state='win';
-      alert("YOU WON!!!! YEAH... Your time record is " + minutes + " minute(s) " + seconds + " second(s)");
-   } else if(stackCount == 14 && currPos[0] == 5 && currPos[1] == 6) {
-      timerForPurple = setInterval(function(){showMissed()},500);
-      alert("You lose... You missed some");
-   }
-}
-   
-   //NEED TO FILL
-//CHECK IF CAN UNDO
-function isCanUndo(x,y){
-   if(stackCount != 0){
-      if(x == currPos[0] && y == currPos[1]){
-		
-         return true;
-      }else{
-         return false;
-      }
-   }else{
-      return false;
+      state = 'start_animation';
+      $('#text-chart-1').addClass("hidden");
+      timerForPurple = setInterval(function(){purpleBlip()},500);
    }
 }
 
-//FUNCTION FOR UNDO MOVE
-function undoLastMove(){
-   if($('table tr:nth-child('+ (currPos[1]+1) +') td:nth-child('+ (currPos[0]+1) +').cell').hasClass("purple")) {
-      $('table tr:nth-child('+ (currPos[1]+1) +') td:nth-child('+ (currPos[0]+1) +').cell').removeClass("purple");
-   }
-   currPos = stackMove.pop();
-   stackCount--;
-   $('h2#counter-desc').html((14-stackCount)+'x');
-   autoConnectorAlert();
-}
-
-//FOR TOGGLE BLINKING
-function autoConnectorAlert(){
-	if(stackCount == 14 && currPos[0] != 5 && currPos[1] != 6){
-		$('.counter').addClass('blinking');
-	}else{
-		$('.counter').removeClass('blinking');
-	}
-}
-
-// Game Initialization
-function initGame(){
-   resetAllImage();
-   state = 'splash';
-   $('#text-chart-1').removeClass("hidden");
-   randomizeTile();
-   stackMove = new Array();
-   stackCount = 0;
-   autoConnectorAlert();
-   $('h2#counter-desc').html((14-stackCount)+'x');
-   currPos = [0,1];
-   $('#text-chart-2').addClass("hidden");
-   gameStart = false;
-   randomizeTargetPos();
-}
-
-// Removing connector image
-function resetAllImage(){
-   for (var i = 2; i <= 7; i++) {
-      for (var j = 1; j <= 6; j++) {
-         $('table tr:nth-child('+ i +') td:nth-child('+ j +').cell').removeClass('up');
-         $('table tr:nth-child('+ i +') td:nth-child('+ j +').cell').removeClass('down');
-         $('table tr:nth-child('+ i +') td:nth-child('+ j +').cell').removeClass('left');
-         $('table tr:nth-child('+ i +') td:nth-child('+ j +').cell').removeClass('right');
-         $('table tr:nth-child('+ i +') td:nth-child('+ j +').cell').removeClass('dotted');
-      }
-   }
-}
-
-// Randomize tile class
-function randomizeTile() {
-   for (var i = 2; i <= 7; i++) {
-      for (var j = 1; j <= 6; j++) {
-         var classes = ["man","woman1","man","woman2"];
-         $('table tr:nth-child('+ i +') td:nth-child('+ j +').cell').addClass(classes[Math.round(Math.random()*(classes.length-1))]);
-      }
-   }
-}
-
+// Adding event listener to some element
 $(document).ready(function(){
    initGame();
-   
-    $(".spielanleitung h2").click(function() 
-	{
-		$(".spielanleitung p").slideToggle( "slow" );
-		$(".spielanleitung ol").slideToggle( "slow" );
-	});
 
    $(document).click(function(){
       if(state =='splash') {
-		state = 'start_animation';
-		//$(".spielanleitung p").slideUp( "slow" );
-		//$(".spielanleitung ol").slideUp( "slow" );
-        $('#text-chart-1').addClass("hidden");
-        timerForPurple = setInterval(function(){purpleBlip()},500);
+		    state = 'start_animation';
+		    $('#text-chart-1').addClass("hidden");
+          timerForPurple = setInterval(function(){purpleBlip()},500);
+      } else if(state == 'win') {
+         $('.left-side').addClass("hidden");
+         $('.content').addClass("hidden");
+         $('.right-side').addClass("hidden");
+         $('#text-chart-3a').addClass("hidden");
+         $('#text-chart-3b').addClass("hidden");
+         $('#text-chart-3c').addClass("hidden");
       }
    });
 
@@ -450,24 +433,23 @@ $(document).ready(function(){
 				   isWin();
                redrawDot();
 				} else if(isCanUndo(this.cellIndex,this.parentNode.rowIndex)) {
-				   var tempCurrPos = currPos;
-					  undoLastMove();
-					  console.log(state);
-                 redrawDot();
-					  //GERAK KE KIRI
-					   if(tempCurrPos[0]-1 == currPos[0] && tempCurrPos[1] == currPos[1]){
-							$(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("left");
-							$(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("right");
-					   }if(tempCurrPos[0]+1 == currPos[0] && tempCurrPos[1] == currPos[1]){
-							$(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("right");
-							$(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("left");
-					   }if(tempCurrPos[0] == currPos[0] && tempCurrPos[1] == currPos[1]+1){
-							$(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("up");
-							$(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("down");
-					   }if(tempCurrPos[0] == currPos[0] && tempCurrPos[1] == currPos[1]-1){
-							$(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("down");
-							$(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("up");
-					   }
+				  var tempCurrPos = currPos;
+				  undoLastMove();
+				  console.log(state);
+              redrawDot();
+				  if(tempCurrPos[0]-1 == currPos[0] && tempCurrPos[1] == currPos[1]){
+						$(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("left");
+						$(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("right");
+				  }if(tempCurrPos[0]+1 == currPos[0] && tempCurrPos[1] == currPos[1]){
+						$(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("right");
+						$(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("left");
+				  }if(tempCurrPos[0] == currPos[0] && tempCurrPos[1] == currPos[1]+1){
+						$(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("up");
+						$(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("down");
+				  }if(tempCurrPos[0] == currPos[0] && tempCurrPos[1] == currPos[1]-1){
+						$(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("down");
+						$(".content table tr:nth-child("+ (currPos[1]+1) +") td:nth-child("+ (currPos[0]+1) +").cell").toggleClass("up");
+				  }
 				}
 			}
 		 });
