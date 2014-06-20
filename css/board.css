@@ -47,6 +47,12 @@ body
 	margin-left : 65px;
 }
 
+#arrow-start
+{
+	padding-left: 20px;
+	padding-bottom: 15px;
+}
+
 /* SPIELANLEITUNG */
 @font-face 
 {
@@ -553,6 +559,11 @@ td img
 #btn-ziel img
 {
 	margin-left: 9px;
+}
+
+#btn-ziel img:nth-child(1)
+{
+	padding-bottom: 15px;
 }
 
 /*	TEXT-CHART-1	*/

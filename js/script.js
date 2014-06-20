@@ -60,7 +60,7 @@ function anotherDelay() {
 }
 
 function delayedStart() {
-   if(counterDelay > 12) {
+   if(counterDelay > 24) {
       counterDelay = 0;
       clearInterval(timerDelay);
       $('#text-chart-2').removeClass("hidden");
@@ -72,8 +72,29 @@ function delayedStart() {
 	  //drawY = 2;
 	  return;
 	  
+   } else if(counterDelay > 12) {
+       //$(".content table tr:nth-child("+ drawY +") td:nth-child("+ drawX +")").addClass("dotted");
+      if(counterDelay%2==0) {
+         $('#btn-ziel img:nth-child(1)').css('margin-left','0px');
+         $('#btn-ziel img:nth-child(2)').css('margin-left','18px');
+
+      } else {
+         $('#btn-ziel img:nth-child(1)').css('margin-left','9px');
+         $('#btn-ziel img:nth-child(2)').css('margin-left','9px');
+      }
+      counterDelay++;
+      //drawX++;
+      //if(drawX > 6) {
+      //   drawX = 1;
+      //   drawY++;
+      //}
    } else {
        //$(".content table tr:nth-child("+ drawY +") td:nth-child("+ drawX +")").addClass("dotted");
+      if(counterDelay%2==0) {
+         $('#arrow-start').css('padding-left','10px');
+      } else {
+         $('#arrow-start').css('padding-left','20px');
+      }
       counterDelay++;
       //drawX++;
       //if(drawX > 6) {
