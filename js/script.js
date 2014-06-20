@@ -6,9 +6,6 @@ var currPos;////CURRENT POSITION IN X,Y STARTS AT 0
 var arrTargetPos = [];//ARRAY POSITION TARGET IN X,Y STARTS AT 0
 var arrPinkTiles = [];//ARRAY CANDIDATE PINK TILES
 var table = document.getElementById("gameBoard");
-var minutes = 0;
-var seconds = 0;
-var timer;
 var timerDelay;
 var state;//STATE : splash, start_animation, playing, win , lose_animation
 var timerForPurple;
@@ -148,9 +145,6 @@ function delayedStart() {
       clearInterval(timerDelay);
       $('#text-chart-2').removeClass("hidden");
       timerDelay = setInterval(function(){anotherDelay()},100);
-      timer = setInterval(function(){count()},1000);
-      minutes = 0;
-      seconds = 0;
       return;
    } else if(counterDelay > 12) {
       if(counterDelay%2==0) {
@@ -303,12 +297,10 @@ function isWin(){
       fufilled = false;
    }
    if(stackCount == 14 && currPos[0] == 5 && currPos[1] == 6 && fufilled){
-      clearInterval(timer);
       state='win';   
       $('#text-chart-3a').removeClass("hidden");
       $('#text-chart-3b').removeClass("hidden");
       $('#text-chart-3c').removeClass("hidden");
-      alert("YOU WON!!!! YEAH... Your time record is " + minutes + " minute(s) " + seconds + " second(s)");
    } else if(stackCount == 14 && currPos[0] == 5 && currPos[1] == 6) {
       timerForPurple = setInterval(function(){showMissed()},500);
       alert("You lose... You missed some");
@@ -342,16 +334,6 @@ function redrawDot() {
 }
 
 /* MISC. FUNCTION */
-
-// Clock generator
-function count()
-{
-   seconds++;
-   if(seconds == 60) {
-      minutes++;
-      seconds = 0;
-   }
-}
 
 // Checking an element on table (2D Array)
 function isInArray2d(array2d,element){
