@@ -62,6 +62,12 @@ body
 
 @font-face 
 {
+    font-family: Quantico-Bold;
+    src: url('../fonts/Quantico-Bold.otf');
+}
+
+@font-face 
+{
     font-family: KillerElephant;
     src: url('../fonts/killerelephant.ttf');
 }
@@ -686,28 +692,26 @@ input[type="text"]
 	font-family : Quantico-Bold;
 	font-size : 14pt;
 	color : #FFFFFF;
+	padding-left: 18px;
 }
 
+
 ::-webkit-input-placeholder { /* WebKit browsers */
-	padding-left : 18px;	
-    color : #FFFFFF;
+	color : #FFFFFF;
 }
 
 :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
 	color : #FFFFFF;
     opacity:  1;
-	padding-left : 18px;
 }
 
 ::-moz-placeholder { /* Mozilla Firefox 19+ */
 	color : #FFFFFF;
     opacity:  1;
-	padding-left : 18px;
 }
 
 :-ms-input-placeholder { /* Internet Explorer 10+ */
 	color : #FFFFFF;
-	padding-left : 18px;
 }
 
 input[type=checkbox]
