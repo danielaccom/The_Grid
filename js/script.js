@@ -27,6 +27,7 @@ function initGame(){
    autoConnectorAlert();
    $('h2#counter-desc').html((14-stackCount)+'x');
    currPos = [0,1];
+   $('.winning').addClass("hidden");
    $('#text-chart-2').addClass("hidden");
    $('#text-chart-3a').addClass("hidden");
    $('#text-chart-3b').addClass("hidden");
@@ -369,12 +370,15 @@ $(document).ready(function(){
 		    $('#text-chart-1').addClass("hidden");
           timerForPurple = setInterval(function(){purpleBlip()},500);
       } else if(state == 'win') {
+         state = 'showing_form';
+      } else if(state == 'showing_form') {
          $('.left-side').addClass("hidden");
          $('.content').addClass("hidden");
          $('.right-side').addClass("hidden");
          $('#text-chart-3a').addClass("hidden");
          $('#text-chart-3b').addClass("hidden");
          $('#text-chart-3c').addClass("hidden");
+         $('.winning').removeClass("hidden");
       }
    });
 
