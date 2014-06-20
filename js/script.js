@@ -435,7 +435,6 @@ $(document).ready(function(){
 				} else if(isCanUndo(this.cellIndex,this.parentNode.rowIndex)) {
 				  var tempCurrPos = currPos;
 				  undoLastMove();
-				  console.log(state);
               redrawDot();
 				  if(tempCurrPos[0]-1 == currPos[0] && tempCurrPos[1] == currPos[1]){
 						$(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("left");
