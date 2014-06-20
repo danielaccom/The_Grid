@@ -565,6 +565,8 @@ td img
 	bottom: 0;
 	left : 0;
 	right: 0;
+	padding-bottom: 250px;
+	padding-left: 50px;
 }
 
 #text-chart-2
@@ -576,6 +578,8 @@ td img
 	bottom: 0;
 	left : 0;
 	right: 0;
+	padding-bottom: 250px;
+	padding-left: 50px;
 }
 
 @media screen and (min-width: 961px) {
