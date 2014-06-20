@@ -47,6 +47,10 @@ body
 	margin-left : 65px;
 }
 
+#btn-start img:first-child {
+	cursor: pointer;
+}
+
 #arrow-start
 {
 	padding-left: 20px;
