@@ -25,7 +25,7 @@ var drawY = 2;
 function randomizeTile() {
    for (var i = 2; i <= 7; i++) {
       for (var j = 1; j <= 6; j++) {
-         var classes = ["man","woman1","woman2"];
+         var classes = ["man","woman1","man","woman2"];
          $('table tr:nth-child('+ i +') td:nth-child('+ j +').cell').addClass(classes[Math.round(Math.random()*(classes.length-1))]);
       }
    }
