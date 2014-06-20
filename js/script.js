@@ -138,8 +138,8 @@ function randomizeTargetPos(){
 		{
 			row = Math.floor((Math.random() * 6) + 2);
 			col = Math.floor((Math.random() * 5) + 1);
-		  
-			if(isInArray2d(arrTargetPos,[col,row]))
+
+			if(isInArray2d(arrTargetPos,[col,row]) || (row == 2 && col == 1))
 			{
 
 			}
@@ -226,11 +226,16 @@ function redrawDot() {
 
 //MOVE TO
 function move(newX,newY){
-   
    stackMove.push(currPos);
-   stackCount++;
-   
+   stackCount++;   
+
    currPos = [newX,newY];
+   var x = currPos[0]+1;
+   var y = currPos[1]+1;
+
+   if(isInArray2d(arrTargetPos,[x,y])) {
+      $('table tr:nth-child('+ y +') td:nth-child('+ x +').cell').addClass("purple");
+   }
    $('h2#counter-desc').html((14-stackCount)+'x');
 	autoConnectorAlert();
 }
@@ -332,6 +337,9 @@ function isCanUndo(x,y){
 
 //FUNCTION FOR UNDO MOVE
 function undoLastMove(){
+   if($('table tr:nth-child('+ (currPos[1]+1) +') td:nth-child('+ (currPos[0]+1) +').cell').hasClass("purple")) {
+      $('table tr:nth-child('+ (currPos[1]+1) +') td:nth-child('+ (currPos[0]+1) +').cell').removeClass("purple");
+   }
    currPos = stackMove.pop();
    stackCount--;
    $('h2#counter-desc').html((14-stackCount)+'x');
@@ -340,7 +348,7 @@ function undoLastMove(){
 
 //FOR TOGGLE BLINKING
 function autoConnectorAlert(){
-	if(stackCount == 14){
+	if(stackCount == 14 && currPos[0] != 5 && currPos[1] != 6){
 		$('.counter').addClass('blinking');
 	}else{
 		$('.counter').removeClass('blinking');
