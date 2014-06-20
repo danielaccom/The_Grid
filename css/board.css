@@ -4,13 +4,25 @@ body
 	width : 100%;
 	margin-left: 0px;
 	margin-top: auto;
+	overflow:auto;
+	vertical-align: middle;
+}
+
+.content-container {
+	width: 960px;
+	height: 600px;
+	position: absolute;
+	vertical-align: middle;
+	margin: auto;
+	top : 0;
+	bottom: 0;
+	left : 0;
+	right: 0;
 	background: url('../images/bg.jpg') no-repeat; 
   	-webkit-background-size: 960px 600px;
   	-moz-background-size: 960px 600px;
   	-o-background-size: 960px 600px;
   	background-size: 960px 600px;
-	overflow:auto;
-	vertical-align: middle;
 }
 
 .hidden {
@@ -501,11 +513,11 @@ td img
 
 .counter{
 	margin-top:70px;
-	margin-right:40px;
+	margin-left:50px;
 	
 	font-size:24px;
 	font-family : KillerElephant;
-	text-align:right;
+	text-align:center;
 	
 	color : white;
 }
@@ -548,16 +560,26 @@ td img
 {
 	position : absolute;
 	visibility : visible;
-	margin-top : 123px;
-	margin-left : 279px;
+	margin: auto;
+	top : 0;
+	bottom: 0;
+	left : 0;
+	right: 0;
+	padding-bottom: 250px;
+	padding-left: 50px;
 }
 
 #text-chart-2
 {
 	position : absolute;
 	visibility : visible;
-	margin-top : 123px;
-	margin-left : 279px;
+	margin: auto;
+	top : 0;
+	bottom: 0;
+	left : 0;
+	right: 0;
+	padding-bottom: 250px;
+	padding-left: 50px;
 }
 
 @media screen and (min-width: 961px) {
