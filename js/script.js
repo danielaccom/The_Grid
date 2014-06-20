@@ -1,35 +1,22 @@
-//VARIABLE DECLARATION
+/* VARIABLE DECLARATION */
 var stackMove;//STACK FOR UNDO
 var stackCount;
-
 var currPos;////CURRENT POSITION IN X,Y STARTS AT 0
 var arrTargetPos = [];//ARRAY POSITION TARGET IN X,Y STARTS AT 0
 var arrPinkTiles = [];//ARRAY CANDIDATE PINK TILES
 var table = document.getElementById("gameBoard");
-
 var minutes = 0;
 var seconds = 0;
 var timer;
-
 var timerDelay;
-
 var state;//STATE : splash, start_animation, playing, win , lose_animation
-
-
 var timerForPurple;
 var purpleBlinked = 0;
 var counterDelay = 0;
-var drawX = 1;
-var drawY = 2;
 
-function randomizeTile() {
-   for (var i = 2; i <= 7; i++) {
-      for (var j = 1; j <= 6; j++) {
-         var classes = ["man","woman1","man","woman2"];
-         $('table tr:nth-child('+ i +') td:nth-child('+ j +').cell').addClass(classes[Math.round(Math.random()*(classes.length-1))]);
-      }
-   }
-}
+/* FUNCTION DECLARATION */
+
+
 
 function count()
 {
@@ -42,33 +29,7 @@ function count()
    //$('h2').html(minutes + " minute(s) " + seconds + " second(s)");
 }
 
-//FUNCTION DECLARATION
-function initGame(){
-   
-   
-   resetAllImage();
-   
-   state = 'splash';
-   $('#text-chart-1').removeClass("hidden");
-   
-   randomizeTile();
 
-   //INIT UNDO STACK
-   stackMove = new Array();
-   stackCount = 0;
-   
-   autoConnectorAlert();
-   $('h2#counter-desc').html((14-stackCount)+'x');//DISPLAY CONNECTOR
-   
-   //INIT POSITIONS
-   currPos = [0,1];
-   
-   $('#text-chart-2').addClass("hidden");
-   gameStart = false;
-
-   //RANDOMIZE ARRAY POSITION
-   randomizeTargetPos();
-}
 
 function purpleBlip() {
    if(purpleBlinked > 4) {
@@ -88,7 +49,9 @@ function anotherDelay() {
    if(counterDelay > 5) {
       $('#text-chart-2').addClass("hidden");
 	  state = 'playing';
-	  clearInterval(timerDelay);
+     $(".content table tr:nth-child(2) td:nth-child(2)").addClass("dotted");
+     $(".content table tr:nth-child(3) td:nth-child(1)").addClass("dotted");
+     clearInterval(timerDelay);
 	  counterDelay = 0;
 	  return;
    } else {
@@ -97,7 +60,7 @@ function anotherDelay() {
 }
 
 function delayedStart() {
-   if(counterDelay > 36) {
+   if(counterDelay > 12) {
       counterDelay = 0;
       clearInterval(timerDelay);
       $('#text-chart-2').removeClass("hidden");
@@ -105,18 +68,18 @@ function delayedStart() {
       timer = setInterval(function(){count()},1000);
       minutes = 0;
       seconds = 0;
-	  drawX = 1;
-	  drawY = 2;
+	  //drawX = 1;
+	  //drawY = 2;
 	  return;
 	  
    } else {
-       $(".content table tr:nth-child("+ drawY +") td:nth-child("+ drawX +")").addClass("dotted");
+       //$(".content table tr:nth-child("+ drawY +") td:nth-child("+ drawX +")").addClass("dotted");
       counterDelay++;
-      drawX++;
-      if(drawX > 6) {
-         drawX = 1;
-         drawY++;
-      }
+      //drawX++;
+      //if(drawX > 6) {
+      //   drawX = 1;
+      //   drawY++;
+      //}
    }
 }
 
@@ -215,15 +178,40 @@ function pinkTilesValidator(arrPinkTiles){
 	}
 }
 
+function redrawDot() {
+   for (var i = 2; i <= 7; i++) {
+      for (var j = 1; j <= 6; j++) {
+         $('table tr:nth-child('+ i +') td:nth-child('+ j +').cell').removeClass("dotted");
+      }
+   }
+   var x = currPos[0]+1;
+   var y = currPos[1]+1;
+
+   if(x != 6 || y != 7 || stackCount != 14) {
+      if(y != 2 && stackCount< 14) {
+         $('table tr:nth-child('+ (y-1) +') td:nth-child('+ x +').cell').addClass("dotted");
+      }
+      if(y != 7 && stackCount< 14) {
+         $('table tr:nth-child('+ (y+1) +') td:nth-child('+ x +').cell').addClass("dotted");
+      }
+      if(x != 1 && stackCount< 14) {
+         $('table tr:nth-child('+ y +') td:nth-child('+ (x-1) +').cell').addClass("dotted");
+      }
+      if(x != 6 && stackCount< 14) {
+         $('table tr:nth-child('+ y +') td:nth-child('+ (x+1) +').cell').addClass("dotted");
+      }
+   }
+}
+
 //MOVE TO
 function move(newX,newY){
    
-      stackMove.push(currPos);
-      stackCount++;
-      
-      currPos = [newX,newY];
-      $('h2#counter-desc').html((14-stackCount)+'x');
-	  autoConnectorAlert();
+   stackMove.push(currPos);
+   stackCount++;
+   
+   currPos = [newX,newY];
+   $('h2#counter-desc').html((14-stackCount)+'x');
+	autoConnectorAlert();
 }
 
    //NEED TO FILL//
@@ -266,6 +254,17 @@ function isMoveValid(x,y){
    //END DUMMY VALIDATION
 }
    
+function restart() {
+   clearInterval(timerForPurple);
+      counterDelay = 0;
+      initGame();
+   state = 'start_animation';
+      //$(".spielanleitung p").slideUp( "slow" );
+      //$(".spielanleitung ol").slideUp( "slow" );
+        $('#text-chart-1').addClass("hidden");
+        timerForPurple = setInterval(function(){purpleBlip()},500);
+}
+
    //NEED TO FILL
 //CHECK WIN CONDITION
 function isWin(){
@@ -327,14 +326,41 @@ function autoConnectorAlert(){
 	}
 }
 
+// Game Initialization
+function initGame(){
+   resetAllImage();
+   state = 'splash';
+   $('#text-chart-1').removeClass("hidden");
+   randomizeTile();
+   stackMove = new Array();
+   stackCount = 0;
+   autoConnectorAlert();
+   $('h2#counter-desc').html((14-stackCount)+'x');
+   currPos = [0,1];
+   $('#text-chart-2').addClass("hidden");
+   gameStart = false;
+   randomizeTargetPos();
+}
+
+// Removing connector image
 function resetAllImage(){
-	for (var i = 2; i <= 7; i++) {
+   for (var i = 2; i <= 7; i++) {
       for (var j = 1; j <= 6; j++) {
          $('table tr:nth-child('+ i +') td:nth-child('+ j +').cell').removeClass('up');
          $('table tr:nth-child('+ i +') td:nth-child('+ j +').cell').removeClass('down');
          $('table tr:nth-child('+ i +') td:nth-child('+ j +').cell').removeClass('left');
          $('table tr:nth-child('+ i +') td:nth-child('+ j +').cell').removeClass('right');
          $('table tr:nth-child('+ i +') td:nth-child('+ j +').cell').removeClass('dotted');
+      }
+   }
+}
+
+// Randomize tile class
+function randomizeTile() {
+   for (var i = 2; i <= 7; i++) {
+      for (var j = 1; j <= 6; j++) {
+         var classes = ["man","woman1","man","woman2"];
+         $('table tr:nth-child('+ i +') td:nth-child('+ j +').cell').addClass(classes[Math.round(Math.random()*(classes.length-1))]);
       }
    }
 }
@@ -351,8 +377,8 @@ $(document).ready(function(){
    $(document).click(function(){
       if(state =='splash') {
 		state = 'start_animation';
-		$(".spielanleitung p").slideUp( "slow" );
-		$(".spielanleitung ol").slideUp( "slow" );
+		//$(".spielanleitung p").slideUp( "slow" );
+		//$(".spielanleitung ol").slideUp( "slow" );
         $('#text-chart-1').addClass("hidden");
         timerForPurple = setInterval(function(){purpleBlip()},500);
       }
@@ -369,6 +395,7 @@ $(document).ready(function(){
 				   $('table tr:nth-child('+ y +') td:nth-child('+ x +').cell').toggleClass("right");
 				   move(this.cellIndex,this.parentNode.rowIndex);
 				   isWin();
+               redrawDot();
 				} else if(isMoveValid(this.cellIndex,this.parentNode.rowIndex) && currPos[0]-1 == this.cellIndex) {
 				   var x = currPos[0]+1;
 				   var y = currPos[1]+1;
@@ -376,6 +403,7 @@ $(document).ready(function(){
 				   $('table tr:nth-child('+ y +') td:nth-child('+ x +').cell').toggleClass("left");
 				   move(this.cellIndex,this.parentNode.rowIndex);
 				   isWin();
+               redrawDot();
 				} else if(isMoveValid(this.cellIndex,this.parentNode.rowIndex) && currPos[1]+1 == this.parentNode.rowIndex) {
 				   var x = currPos[0]+1;
 				   var y = currPos[1]+1;
@@ -383,6 +411,7 @@ $(document).ready(function(){
 				   $('table tr:nth-child('+ y +') td:nth-child('+ x +').cell').toggleClass("down");
 				   move(this.cellIndex,this.parentNode.rowIndex);
 				   isWin();
+               redrawDot();
 				} else if(isMoveValid(this.cellIndex,this.parentNode.rowIndex) && currPos[1]-1 == this.parentNode.rowIndex) {
 				   var x = currPos[0]+1;
 				   var y = currPos[1]+1;
@@ -390,10 +419,12 @@ $(document).ready(function(){
 				   $('table tr:nth-child('+ y +') td:nth-child('+ x +').cell').toggleClass("up");
 				   move(this.cellIndex,this.parentNode.rowIndex);
 				   isWin();
+               redrawDot();
 				} else if(isCanUndo(this.cellIndex,this.parentNode.rowIndex)) {
 				   var tempCurrPos = currPos;
 					  undoLastMove();
 					  console.log(state);
+                 redrawDot();
 					  //GERAK KE KIRI
 					   if(tempCurrPos[0]-1 == currPos[0] && tempCurrPos[1] == currPos[1]){
 							$(".content table tr:nth-child("+ (this.parentNode.rowIndex+1) +") td:nth-child("+ (this.cellIndex+1) +").cell").toggleClass("left");
