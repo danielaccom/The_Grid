@@ -31,7 +31,7 @@ body
 
 .hidden 
 {
-	display: none;
+	visibility : hidden;
 }
 
 /* CONTENT SECTION */
@@ -125,16 +125,17 @@ input[type=checkbox]
 	display : none;
 }
 
-/* SQUARED TWO */
+/* SQUARED TWO -- FOR CHECKBOX */
 .squaredTwo {
 	width: 14px;
 	height: 14px;
 	background: transparent;
-	margin-top : 21px;
+	margin-top : 8px;
 	margin-left : 0px;
 	border : 2px solid white;
 	border-radius : 2px;
 	position: relative;
+	float : left;
 }
 
 .squaredTwo label {
@@ -180,11 +181,54 @@ input[type=checkbox]
 	opacity: 1;
 }
 
-/* IMAGE SECTION */
-.content > img:first-child
+form > p
 {
-	position : absolute;
+	width : 230px;
+	margin-top : 10px;
+	margin-left : 8px;
+	font-family : Arial;
+	font-size : 11px;
+	color : #FFFFFF;
+	float : left;
+}
+
+form input[type=submit], form input[type=reset]
+{
+	background-image : url(../images/gewinnspiel-teilnehmen.png);
+	background-color : transparent;
+	border-color : transparent;
+	border : none;
+	outline : none;
+	width : 274px;
+	height : 49px;
+	margin-left : 15px;
+	cursor : pointer;
+}
+
+form input[type=submit]
+{
+	background-image : url(../images/gewinnspiel-teilnehmen.png);
+}
+
+form input[type=reset]
+{
+	background-image : url(../images/ohne-gewinnspiel.png);
+}
+
+form input[type=submit]:active, form input[type=reset]:active
+{
+    background-color:transparent;
+	border-color : transparent;
+	border : none;
+}
+
+/* IMAGE SECTION */
+.danke
+{
+	position : relative;
 	z-index : 123;
+	margin-top : -182px;
+	margin-left : -10px;
 }
 
 /***** END OF OVERLAY CSS *****/
