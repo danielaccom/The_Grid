@@ -75,7 +75,7 @@ function randomizeTargetPos(){
    
    do{
       var i = 0;
-      while (i < 4)
+      while (i < 3)
       {
          row = Math.floor((Math.random() * 6) + 2);
          col = Math.floor((Math.random() * 5) + 1);
@@ -89,7 +89,7 @@ function randomizeTargetPos(){
             i++;
          }
       }
-      arrTargetPos[4] = [6,7];
+      arrTargetPos[3] = [6,7];
    } while(!pinkTilesValidator(arrTargetPos));
    
    for (i = 0; i < arrTargetPos.length; i++)
@@ -292,12 +292,13 @@ function isWin(){
       }
    }
 
-   if(count > 3) {
+   if(count > 2) {
       fufilled = true;
    } else {
       fufilled = false;
    }
-   if(stackCount == 14 && currPos[0] == 5 && currPos[1] == 6 && fufilled){
+   //if(stackCount == 14 && currPos[0] == 5 && currPos[1] == 6 && fufilled){EARLIER VERSION, VALIDATE CONNECTOR COUNT
+   if(currPos[0] == 5 && currPos[1] == 6 && fufilled){
       state='win';   
       $('#text-chart-3a').removeClass("hidden");
       $('#text-chart-3b').removeClass("hidden");
